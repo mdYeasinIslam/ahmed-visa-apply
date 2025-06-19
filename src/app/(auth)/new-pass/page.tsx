@@ -17,9 +17,15 @@ const Page = () => {
     // const [loginUser] = useLoginUserMutation()
     //  const router = useRouter();
     // State to manage password visibility
+    const [showPasswordOne, setShowPasswordOne] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const togglePasswordVisibility = () => {
-        setShowPassword((prev) => !prev);
+    const togglePasswordVisibility = (name:string) => {
+        if(name==='pass'){
+            setShowPasswordOne((prev) => !prev);
+        }
+        else if(name ==='confirm'){
+            setShowPassword((prev) => !prev);
+        }
     }
     const [loading,setLoading] = useState(false)
     
@@ -27,10 +33,9 @@ const Page = () => {
         setLoading(true)
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const name = formData.get("name");
         const email = formData.get("email");
         const password = formData.get("password");
-        console.log(email, password, name);
+        // console.log(email, password);
         
        try {
             if(!email || !password) {
@@ -70,48 +75,38 @@ const Page = () => {
         <div className={`w-full md:flex items-center justify-center px-5 md:px-0  ${loading ? 'opacity-50':''}`}>
             <div className="xl:w-[500px] rounded-lg space-y-6">
                 <div className="">
-                  <h2 className="text-4xl font-bold text-gray-800  text-center">Register</h2>
+                  <h2 className="text-4xl font-bold text-gray-800  text-center">Set new password</h2>
                 </div>
                 <form onSubmit={handleSubmit} className="border px-5  lg:px-10 py-16 shadow-xl rounded-md space-y-5">
-                  <p className=" text-gray-600 text-start font-semibold text-xl lg:text-2xl">
-                            Sign Up to your accountgin
-                        </p>
-                    {/* Email Input */}
-                    <div className="mb-4">
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                            Name
-                        </label>
-                        <input
-                            type="name"
-                            id="name"
-                            name="name"
-                            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="Enter your name"
-                            required
-                            />
-                    </div>
-                    {/* Email Input */}
-                    <div className="mb-4">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="Enter your email"
-                            required
-                            />
-                    </div>
-
                     {/* Password Input */}
                     <div className="mb-6 relative">
                         <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                            Password
+                           New Password
                         </label>
-                        <div onClick={togglePasswordVisibility} className="absolute right-3 top-8 text-gray-500 cursor-pointer z-10">
+                        <div onClick={()=>togglePasswordVisibility('pass')} className="absolute right-3 top-8 text-gray-500 cursor-pointer z-10">
 
+                            {
+                              showPasswordOne ? (
+                                <EyeOff />
+                              ) : (
+                                <Eye  />
+                              )
+                            }
+                        </div>
+                        <input
+                            type={showPasswordOne ? "text" : "password"}
+                            id="password"
+                            name="password"
+                            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter New password"
+                            />
+                    </div>
+                    {/* Confirm Password Input */}
+                    <div className="mb-6 relative">
+                        <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">
+                           Confirm Password
+                        </label>
+                        <div onClick={()=>togglePasswordVisibility('confirm')} className="absolute right-3 top-8 text-gray-500 cursor-pointer z-10">
                             {
                               showPassword ? (
                                 <EyeOff />
@@ -122,20 +117,19 @@ const Page = () => {
                         </div>
                         <input
                             type={showPassword ? "text" : "password"}
-                            id="password"
-                            name="password"
+                            id="confirm-password"
+                            name="confirm-password"
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="Enter your password"
-                            required
+                            placeholder="Confirm password"
                             />
                     </div>
 
                     {/* Submit Button */}
-                    <SubmitButton name="Register" />
+                <SubmitButton name="Continue" />
                 </form>
                   <div>
                         <h2 className="text-sm  text-gray-800  text-center">Don’t have an account?
-                          <Link href={'login'} className="underline hover:text-blue-700">Log in</Link>
+                          <Link href={'signup'} className="underline hover:text-blue-700">Register</Link>
                         </h2>
                         
                     </div>
