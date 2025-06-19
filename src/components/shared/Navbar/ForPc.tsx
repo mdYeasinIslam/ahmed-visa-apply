@@ -1,20 +1,19 @@
 "use client";
-import React, { useState } from "react";
-import logo from "@/assets/logo/redTextLogo.png";
-import Image from "next/image";
+import React from "react";
 import Link from "next/link";
 import NavMenu from "./NavMenu";
-import { FaCaretDown } from "react-icons/fa6";
-import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
 import MyButton from "@/components/ui/MyButton/MyButton";
 
-const ForPc = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [dropdownOpenPricing, setDropdownOpenPricing] = useState(false);
-  const pathname = usePathname();
+interface ForPcProps {
+  ref?: React.Ref<HTMLDivElement>;
+}
+
+const ForPc = ({ ref }: ForPcProps) => {
+  // const [dropdownOpen, setDropdownOpen] = useState(false);
+  // const [dropdownOpenPricing, setDropdownOpenPricing] = useState(false);
+  // const pathname = usePathname();
   return (
-    <div>
+    <div ref={ref}>
       <div className="container hidden lg:flex py-6 items-center justify-between ">
         <Link href={"/"} className="">
           <div className="flex items-center gap-2 h-full w-28">

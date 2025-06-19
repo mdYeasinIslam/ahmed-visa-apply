@@ -2,6 +2,7 @@
 // components/FacebookPixel.tsx
 'use client';
 
+import Image from 'next/image';
 import { useEffect } from 'react';
 
 declare global {
@@ -54,9 +55,10 @@ export default function FacebookPixel() {
 
   return (
     <noscript>
-      <img
+      <Image
         height="1"
         width="1"
+        alt='facebookPixel'
         style={{ display: 'none' }}
         src="https://www.facebook.com/tr?id=720061294011638&ev=PageView&noscript=1"
       />

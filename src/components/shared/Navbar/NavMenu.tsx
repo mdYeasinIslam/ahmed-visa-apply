@@ -5,20 +5,20 @@ import { usePathname } from "next/navigation";
 
 const NavMenu = ({
   className,
-  isShowBorder = false,
+  // isShowBorder = false,
 }: {
   className?: string;
   isShowBorder?: boolean;
 }) => {
   const pathname = usePathname();
   return (
-    <div className={cn("text-black flex  gap-6  font-normal ps-3", className)}>
+    <div className={cn("text-[#1F2C5B] flex  gap-6  font-normal ps-3", className)}>
       <Link href={"/"}>
         <div
           // className="cursor-pointer hover:text-red-primary transition duration-200"
           className={cn(
             "cursor-pointer hover:text-[#0056B3] transition duration-200",
-            pathname === "/" && "text-[#0056B3] font-semibold underline "
+            pathname === "/" && "text-[#1F2C5B] font-bold underline "
           )}
         >
           Home
@@ -29,7 +29,7 @@ const NavMenu = ({
         <div
           className={cn(
             "cursor-pointer hover:text-[#0056B3] transition duration-200",
-            pathname === "/apply-now" && "text-red-primary font-semibold underline"
+            pathname === "/apply-now" && "text-[#1F2C5B] font-bold underline"
           )}
         >
           Apply Now
@@ -39,7 +39,7 @@ const NavMenu = ({
         <div
           className={cn(
             "cursor-pointer hover:text-[#0056B3] transition duration-200",
-            pathname === "/faq" && "text-red-primary font-semibold underline"
+            pathname === "/faq" && "text-[#1F2C5B] font-bold underline"
           )}
         >
           FAQ
@@ -49,7 +49,7 @@ const NavMenu = ({
         <div
           className={cn(
             "cursor-pointer hover:text-[#0056B3] transition duration-200",
-            pathname === "/contact" && "text-red-primary font-semibold underline"
+            pathname === "/contact" && "text-[#1F2C5B] font-bold underline"
           )}
         >
           Contact Us
@@ -59,7 +59,7 @@ const NavMenu = ({
         <div
           className={cn(
             "cursor-pointer hover:text-[#0056B3] transition duration-200",
-            pathname === "/about" && "text-red-primary font-semibold underline"
+            pathname === "/about" && "text-[#1F2C5B] font-bold underline"
           )}
         >
           About Us

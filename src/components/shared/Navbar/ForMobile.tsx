@@ -1,15 +1,19 @@
 "use client";
-import logo from "@/assets/logo/redTextLogo.png";
+// import logo from "@/assets/logo/redTextLogo.png";
 import { Drawer, Space } from "antd";
-import Image from "next/image";
 import { useState } from "react";
 import { IoClose, IoMenu } from "react-icons/io5";
 import NavMenu from "./NavMenu";
 
-import { Accordion, AccordionItem } from "@nextui-org/react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
-const ForMobile = () => {
+// import { cn } from "@/lib/utils";
+import { RefObject } from "react";
+
+interface ForMobileProps {
+  ref?: RefObject<HTMLDivElement>;
+}
+
+const ForMobile = ({ ref }: ForMobileProps) => {
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -21,22 +25,29 @@ const ForMobile = () => {
   };
 
   return (
-    <div className="flex justify-between items-center px-3 lg:hidden">
+    <div ref={ref} className=" px-3 lg:hidden">
+      <div className=" flex items-center justify-between">
       <Link href={"/"} className="">
         <div className="flex items-center gap-2 h-16 w-16">
-          <Image
+          {/* <Image
             src={logo}
             alt="Booksy.buzz"
             width={200}
             height={200}
             className="rounded object-contain"
-          />
+          /> */}
+           <p className="font-semibold">Logo</p>
         </div>
       </Link>
-      <div>
-        <button onClick={showDrawer} className="mt-3 ml-3 p-1">
+      <div className="">
+        <button onClick={showDrawer} className="">
           <IoMenu size={25} />
         </button>
+
+      </div>
+
+      </div>
+      <div>
         <Drawer
           title="Menu"
           placement="left"
@@ -57,7 +68,7 @@ const ForMobile = () => {
               <div onClick={onClose}>
                 <div className=" w-full text-base">
                   <NavMenu className="flex-col mb-4" />
-                  <div className="ps-1 ">
+                  {/* <div className="ps-1 ">
                     <Accordion isCompact>
                       <AccordionItem
                         key="1"
@@ -86,8 +97,8 @@ const ForMobile = () => {
                         </div>
                       </AccordionItem>
                     </Accordion>
-                  </div>
-                  <div className="ps-1 ">
+                  </div> */}
+                  {/* <div className="ps-1 ">
                     <Accordion isCompact>
                       <AccordionItem
                         key="1"
@@ -128,7 +139,7 @@ const ForMobile = () => {
                         </div>
                       </AccordionItem>
                     </Accordion>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
