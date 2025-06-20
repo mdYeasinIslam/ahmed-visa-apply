@@ -1,7 +1,11 @@
 'use client'
 import React, { useState } from 'react';
-import { Button, message, Steps } from 'antd';
-import ApplyForm from '@/components/ApplyNow/ApplyForm';
+import { Steps  } from 'antd';
+import ApplyForm from '@/components/ApplyNow/ApplyFormFirst';
+import StepsButton from '@/components/ApplyNow/StepsButton';
+import ApplyFormSecond from '@/components/ApplyNow/ApplyFormSecond';
+import ApplyFormThird from '@/components/ApplyNow/ApplyFormThird';
+import ApplyFormFinal from '@/components/ApplyNow/ApplyFormFinal';
 
 const steps = [
   {
@@ -26,13 +30,6 @@ const Page = () => {
 //   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
 
-  const next = () => {
-    setCurrent(current + 1);
-  };
-
-  const prev = () => {
-    setCurrent(current - 1);
-  };
 
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
 
@@ -42,26 +39,16 @@ const Page = () => {
             <Steps current={current} items={items} />
 
         </div>
-      <div>
-        <ApplyForm/>
+      <div className='mb-20'>
+        {
+          current ===0 &&( <ApplyForm setCurrent={setCurrent} current={current}/> )
+        }
+      
+     
+        
+
       </div>
-      <div style={{ marginTop: 40 }} className='flex justify-center' >
-        {current < steps.length - 1 && (
-          <Button type="primary" onClick={() => next()}>
-            Next
-          </Button>
-        )}
-        {current === steps.length - 1 && (
-          <Button type="primary" onClick={() => message.success('Processing complete!')}>
-            Done
-          </Button>
-        )}
-        {current > 0 && (
-          <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
-            Previous
-          </Button>
-        )}
-      </div>
+     
     </section>
   );
 };
