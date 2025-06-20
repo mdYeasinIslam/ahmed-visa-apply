@@ -46,6 +46,9 @@ const Page = () => {
         {
           current ===1 &&( <ApplyFormSecond setCurrent={setCurrent} current={current}/> )
         }
+        {
+          current ===2 &&( <ApplyFormThird setCurrent={setCurrent} current={current}/> )
+        }
        
      
         
