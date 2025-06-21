@@ -62,7 +62,10 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     return (
         <section className="  bg-white">
             <div>
-                <FormHeader content="Personal Info"/>
+                <div className="my-28">
+                    <FormHeader content="Personal Info"/>
+
+                </div>
 
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     {/* First Row */}
@@ -203,7 +206,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
                             <StepsButton  setCurrent={setCurrent} current={current}/>
                         </button> */}
-                         {current < steps.length - 1 && (
+                         {current < steps.length && (
                             <button type="submit" className="bg-[#1F2C5B] flex items-center gap-2 text-white px-  rounded-lg font-semibold px-12 py-3 hover:bg-blue-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
                                 <span>Next</span> <FaCircleArrowRight className='w-5 h-5'/>
                     

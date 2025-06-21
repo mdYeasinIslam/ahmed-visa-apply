@@ -1,4 +1,4 @@
-import { Button, message } from 'antd'
+import { Button } from 'antd'
 import React from 'react'
 import { FaArrowCircleLeft } from 'react-icons/fa'
 import { toast } from 'sonner';
@@ -31,7 +31,7 @@ const ApplyFormFinal = ({setCurrent,current}:{ setCurrent: React.Dispatch<React.
     <section>
 
         <div className='flex items-center '>
-            {current === steps.length - 1 && (
+            {current === steps.length && (
             <Button
                 type="primary"
                 onClick={finalHandle} 
