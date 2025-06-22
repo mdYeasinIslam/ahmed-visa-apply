@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useRef, type DragEvent, type ChangeEvent, useState } from "react"
 import { Upload, X } from "lucide-react"
+import Image from "next/image"
 export interface FileUploadProps {
   onFileSelect: (file: File) => void
   onFileRemove: () => void
@@ -85,9 +86,11 @@ export function FileUpload({
     >
       {uploadedImage ? (
         <div className="relative">
-          <img
+          <Image
             src={uploadedImage || "/placeholder.svg"}
             alt="Uploaded preview"
+            width={500}
+            height={500}
             className="max-w-full max-h-48 mx-auto rounded-lg object-contain"
           />
           <button

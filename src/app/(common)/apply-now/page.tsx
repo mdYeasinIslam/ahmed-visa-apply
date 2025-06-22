@@ -53,7 +53,7 @@ const Page = () => {
               {step.id}
             </div>
             {index < steps.length - 1 && (
-              <div className={`w-40 h-1 mx-2 ${step.id < current ? "bg-[#1F2C5B]" : "bg-gray-300"}`} />
+              <div className={`w-12 lg:w-40 h-1 mx-2 ${step.id < current ? "bg-[#1F2C5B]" : "bg-gray-300"}`} />
             )}
           </div>
         ))}

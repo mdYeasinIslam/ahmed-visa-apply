@@ -1,10 +1,10 @@
 'use client'
 import { Button } from 'antd'
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 import { FaCircleArrowRight } from 'react-icons/fa6';
 import { FaArrowCircleLeft } from 'react-icons/fa';
-import { FileUpload } from './thirdForm/FileUpload';
 import FormHeader from './FormHeader';
+import FileUploadSection from './thirdForm/FileUploadSection';
 const steps = [
   {
     title: '',
@@ -23,32 +23,32 @@ const steps = [
     content: 'Last-content',
   },
 ];
-export interface ImageData {
-  image?: File | null
-  imagePreview?: string | null
-}
+// export interface ImageData {
+//   image?: File | null
+//   imagePreview?: string | null
+// }
 const ApplyFormThird = ({setCurrent,current}:{ setCurrent: React.Dispatch<React.SetStateAction<number>>, current:number}) => {
-    const initialData: Partial<ImageData> = {}
-    const [uploadedImage, setUploadedImage] = useState<string | null>(initialData?.imagePreview || null) // State for uploaded image preview. ( can display the image preview in the UI by using this state variable)
-  const [selectedFile, setSelectedFile] = useState<File | null>(null) // State for the selected file. ( can display the image preview in the UI by using this state variable and when send image to the backend, you can use this state variable to send the file)
+    // const initialData: Partial<ImageData> = {}
+  //   const [uploadedImage, setUploadedImage] = useState<string | null>(initialData?.imagePreview || null) // State for uploaded image preview. ( can display the image preview in the UI by using this state variable)
+  // const [selectedFile, setSelectedFile] = useState<File | null>(null) // State for the selected file. ( can display the image preview in the UI by using this state variable and when send image to the backend, you can use this state variable to send the file)
 
     const prev = () => {
         setCurrent(current - 1);
       };
       
-      const handleFileSelect = useCallback((file: File): void => {
-          setSelectedFile(file)
-          const reader = new FileReader()
-          reader.onload = (e) => {
-              setUploadedImage(e.target?.result as string)
-            }
-            reader.readAsDataURL(file)
-        }, [])
+      // const handleFileSelect = useCallback((file: File): void => {
+      //     setSelectedFile(file)
+      //     const reader = new FileReader()
+      //     reader.onload = (e) => {
+      //         setUploadedImage(e.target?.result as string)
+      //       }
+      //       reader.readAsDataURL(file)
+      //   }, [])
         
-        const handleFileRemove = useCallback((): void => {
-            setUploadedImage(null)
-            setSelectedFile(null)
-        }, [])
+      //   const handleFileRemove = useCallback((): void => {
+      //       setUploadedImage(null)
+      //       setSelectedFile(null)
+      //   }, [])
   
       const handleSubmit = () => {
          
@@ -56,8 +56,8 @@ const ApplyFormThird = ({setCurrent,current}:{ setCurrent: React.Dispatch<React.
         
           setCurrent(current + 1);
       };
-      console.log(selectedFile)
-      console.log(uploadedImage)
+      // console.log(selectedFile)
+      // console.log(uploadedImage)
   return (
     <div>
         <div className='mb-20 my-28'>
@@ -65,11 +65,12 @@ const ApplyFormThird = ({setCurrent,current}:{ setCurrent: React.Dispatch<React.
         </div>
         <div className="space-y-6" >
             <div className='border '>
-                <FileUpload
+                {/* <FileUpload
                     onFileSelect={handleFileSelect}
                     onFileRemove={handleFileRemove}
                     uploadedImage={uploadedImage}
-                />
+                /> */}
+                <FileUploadSection/>
             </div>
 
 

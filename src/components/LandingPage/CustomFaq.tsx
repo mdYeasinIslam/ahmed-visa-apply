@@ -46,7 +46,7 @@ export default function CustomFaq() {
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto">
-        <h2 className="text-4xl font-bold text-center text-blue-600 mb-12">Frequently Asked Questions</h2>
+        <h2 className="text-4xl font-bold text-center text-[#0056B3] mb-12">Frequently Asked Questions</h2>
 
         <div className="space-y-4">
           {faqData.map((faq) => (

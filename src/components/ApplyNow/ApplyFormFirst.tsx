@@ -69,7 +69,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     {/* First Row */}
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="md:grid md:grid-cols-2 gap-6">
                         <InputField
                             label="First Name"
                             name="firstName"

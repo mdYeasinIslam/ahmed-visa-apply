@@ -25,7 +25,7 @@ const ForMobile = ({ ref }: ForMobileProps) => {
   };
 
   return (
-    <div ref={ref} className=" px-3 lg:hidden">
+    <div ref={ref} className=" px-4 lg:hidden">
       <div className=" flex items-center justify-between">
       <Link href={"/"} className="">
         <div className="flex items-center gap-2 h-16 w-16">

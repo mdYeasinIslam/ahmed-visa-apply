@@ -82,7 +82,7 @@ const ApplyFormSecond = ({ setCurrent, current }: { setCurrent: React.Dispatch<R
             <div className='my-28'>
                 <FormHeader content='Add spouse/child/vehicle' />
             </div>
-            <div className='flex items-center justify-between gap-5 mb-8'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-between gap-5 mb-8'>
                 {
                     buttonsGroup?.map((button,idx)=>{
                         return  (
