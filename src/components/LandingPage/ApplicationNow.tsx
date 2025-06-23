@@ -15,7 +15,7 @@ export default function ApplicationNow() {
         </div>
         <div  className="space-y-5">
           <div>
-            <Link href={'/eventCreate'}>
+            <Link href={'/apply-now'}>
               <Button
                 size="large"
                 className="bg-white text-black hover:bg-gray-100 px-9 py-8 text-lg font-semibold rounded-lg"
