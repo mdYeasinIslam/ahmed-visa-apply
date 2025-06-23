@@ -1,17 +1,46 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import NavMenu from "./NavMenu";
-import MyButton from "@/components/ui/MyButton/MyButton";
+import NavMenu from "./NavMenu"
+import { Button, Dropdown, MenuProps } from "antd";
+import { User } from "lucide-react";
+import { FaPhone } from "react-icons/fa6";
 
 interface ForPcProps {
   ref?: React.Ref<HTMLDivElement>;
 }
-
+const items: MenuProps['items'] = [
+  {
+    key: '1',
+    label: (
+      <Link href="/account">
+        Account
+      </Link >
+    ),
+  },
+  {
+    key: '2',
+    label: (
+      <Link href="/setting">
+        Setting
+      </Link >
+    ),
+ },
+  {
+    key: '3',
+    label: (
+      <p >
+        Log-out
+      </p >
+    ),
+ }
+]
 const ForPc = ({ ref }: ForPcProps) => {
-  // const [dropdownOpen, setDropdownOpen] = useState(false);
+  // const [userAvailable, setUserAvailable] = useState(false);
+  const userAvailable = false
   // const [dropdownOpenPricing, setDropdownOpenPricing] = useState(false);
   // const pathname = usePathname();
+
   return (
     <div ref={ref}>
       <div className="container hidden lg:flex py-6 items-center justify-between border-b border-[#CFDFF0]">
@@ -92,7 +121,7 @@ const ForPc = ({ ref }: ForPcProps) => {
             )}
           </div> */}
           {/* <div className="h-5 border "></div> */}
-           {/* "pricing" Dropdown  */}
+          {/* "pricing" Dropdown  */}
           {/* <div
             onMouseEnter={() => setDropdownOpenPricing(true)}
             onMouseLeave={() => setDropdownOpenPricing(false)}
@@ -158,10 +187,29 @@ const ForPc = ({ ref }: ForPcProps) => {
         </div>
 
         <div className="flex gap-5">
-            <MyButton title="Call Now"  className="bg-[#1F2C5B] text-white"/>
-            <Link href={'/log-in'}>
-              <MyButton title="Log in" className="bg-white font-semibold text-black border hover:bg-[#222b58] hover:text-white border-[#1F2C5B]"/>
+          <Link href={'/call-now'} className="bg-[#222b58] hover:bg-[#3448af] duration-500 rounded-md">
+
+              <button className="flex items-center justify-center gap-2 w-40 h-12  font-medium  text-white border rounded-md  hover:text-white border-[#1F2C5B]">
+              <div className="bg-white rounded-full"><FaPhone  className="text-black w-6 h-6 p-1"/></div> <span>Call Now</span>
+              </button>
             </Link>
+          {
+            userAvailable ?
+            <Link href={'/log-in'} className="hover:bg-[#222b58] duration-500 rounded-md">
+
+              <button className="w-40 h-12  font-semibold text-black border rounded-md  hover:text-white border-[#1F2C5B]">
+                Log in
+              </button>
+            </Link>
+            :
+
+            <div className="">
+              <Dropdown menu={{ items }} placement="topRight" arrow  className="w-40 h-12 bg-white font-semibold text-black border hover:bg-[#222b58] hover:text-white border-[#1F2C5B] rounded-md">
+                <Button><User className="border-2 rounded-full w-6 h-6 "/><h1>M Yeasin</h1></Button>
+              </Dropdown>
+            </div>
+
+          }
         </div>
       </div>
     </div>

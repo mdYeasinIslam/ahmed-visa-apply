@@ -28,7 +28,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="py-16 md:px-4 bg-white">
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left Side - Contact Info */}
@@ -51,7 +51,7 @@ export default function ContactSection() {
           </div>
 
           {/* Right Side - Contact Form */}
-          <div className="bg-gray-100 rounded-2xl p-8">
+          <div className="bg-gray-100 rounded-2xl p-3 md:p-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Get in touch</h3>
 
             <form onSubmit={handleSubmit} className="space-y-6">
