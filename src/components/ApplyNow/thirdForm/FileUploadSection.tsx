@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState, useRef } from "react"
-import { Upload, FileText } from "lucide-react"
+import { Upload, FileText } from "lucide-react" 
 import {MdDelete  } from "react-icons/md"
 
 interface UploadedFile {

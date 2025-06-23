@@ -14,7 +14,7 @@ const ForPc = ({ ref }: ForPcProps) => {
   // const pathname = usePathname();
   return (
     <div ref={ref}>
-      <div className="container hidden lg:flex py-6 items-center justify-between ">
+      <div className="container hidden lg:flex py-6 items-center justify-between border-b border-[#CFDFF0]">
         <Link href={"/"} className="">
           <div className="flex items-center gap-2 h-full w-28">
             {/* <Image
