@@ -2,8 +2,11 @@ import Image from 'next/image'
 import React from 'react'
 import img from '../../../public/profile/profile.png'
 import { Button } from 'antd'
+type PropsType ={
+  showModal: () => void
+}
 
-const Personalinfo = () => {
+const Personalinfo = ({showModal}:PropsType) => {
   return (
     <div className=' grid grid-cols-3 shadow-xl p-6'>
             
@@ -38,7 +41,7 @@ const Personalinfo = () => {
                 </div>
             </aside>
             <aside className='w-full flex justify-end'>
-                <Button size='large' className='font-semibold hover:text-[#1F2C5B]'>Edit Profile</Button>
+                <Button onClick={showModal} size='large' className='font-semibold hover:text-[#1F2C5B]'>Edit Profile</Button>
             </aside>
 
         </div>

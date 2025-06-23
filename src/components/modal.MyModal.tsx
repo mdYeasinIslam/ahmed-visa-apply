@@ -27,6 +27,7 @@ const MyModal = ({
         onOk={handleOk}
         footer={false}
         onCancel={handleCancel}
+        style={{padding:'0px'}}
       >
         {children}
       </Modal>
