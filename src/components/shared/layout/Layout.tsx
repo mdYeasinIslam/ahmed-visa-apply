@@ -12,7 +12,7 @@ import { Layout, Menu, theme } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content,Sider } = Layout;
 
 export type MenuItem = Required<MenuProps>["items"][number];
 
@@ -54,7 +54,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
     <Layout style={{ height: "100vh" }}>
       <Sider
         width={220}
-        className={`!bg-[#EDE8DF] !overflow-y-auto !fixed lg:!static h-full z-50 ${
+        className={`bg-white !overflow-y-auto !fixed lg:!static h-full z-50 border ${
           open ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0`}
         theme="dark"
@@ -73,7 +73,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
           onClick={handleClick}
           items={menu}
           style={{
-            backgroundColor: "#EDE8DF",
+            // backgroundColor: "#EDE8DF",
             fontWeight: "500",
           }}
           inlineIndent={16}
@@ -93,31 +93,32 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
             paddingLeft: "24px",
           }}
         >
-          <h2 className="text-xl hidden lg:block  sm:text-2xl lg:text-3xl font-semibold w-full ">
-            Welcome back!
-          </h2>
+          <div className="hidden lg:flex justify-between items-center w-full">
 
+            <h2 className="text-xl  sm:text-2xl lg:text-3xl font-semibold w-full ">
+              Welcome back, Yeasin!
+            </h2>
+            <div className="flex  flex-col items-center  ">
+              <span className="font-semibold text-lg">Yeasin!</span>
+              <span className="text-sm text-gray-500">Admin</span>
+            </div>
+          </div>
+          {/* <div className="hidden lg:block">
+            <PageWrapper title="Wekcome Back, Yeasin"/>
+
+          </div> */}
           <MenuOutlined
             onClick={() => setOpen(!open)}
             className="lg:!hidden text-2xl"
           />
         </Header>
         <Content
-          className="!overflow-y-auto !overflow-x-hidden"
+          className="!overflow-y-auto !overflow-x-hidden bg-white"
           onClick={() => setOpen(false)}
           style={{ padding: "24px", height: "100%" }}
         >
           {children}
         </Content>
-        <Footer
-          style={{
-            textAlign: "start",
-            background: "white",
-            padding: "16px 24px",
-          }}
-        >
-          @Copy Dubai Art Events all rights reserve.
-        </Footer>
       </Layout>
     </Layout>
   );

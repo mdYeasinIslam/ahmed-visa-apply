@@ -5,6 +5,7 @@ import ApplicationStatus from '@/components/profile/ApplicationStatus'
 import EditProfile from '@/components/profile/EditProfile'
 
 
+
 const Page = () => {
       const [open, setOpen] = useState(false);
 
