@@ -8,52 +8,48 @@ import { toast } from "sonner";
 import LoadingSpinner from "@/app/loading";
 import Link from "next/link";
 import SubmitButton from "@/components/Auth/SubmitButton";
-// import LoadingSpinner from "@/app/loading";
+import { useRegisterUserMutation } from "@/redux/service/auth/authApi";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
-    // Importing the useAppDispatch hook to dispatch actions
-    // const dispatch = useAppDispatch()
-    // Using the loginUser mutation from authApi
-    // const [loginUser] = useLoginUserMutation()
-    //  const router = useRouter();
-    // State to manage password visibility
+    const [registerUser] = useRegisterUserMutation()
+     const router = useRouter();
+    // State to manage password visibility 
     const [showPassword, setShowPassword] = useState(false);
     const togglePasswordVisibility = () => {
         setShowPassword((prev) => !prev);
     }
     const [loading,setLoading] = useState(false)
     
-    const handleSubmit = (e: FormEvent<HTMLFormElement | undefined>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         setLoading(true)
         e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const name = formData.get("name");
-        const email = formData.get("email");
-        const password = formData.get("password");
-        console.log(email, password, name);
-        
+         const form = e.currentTarget;
+         const name = (form.elements.namedItem('name') as HTMLInputElement)?.value as string;
+         const email = (form.elements.namedItem('email') as HTMLInputElement)?.value as string;
+         const password = (form.elements.namedItem('password') as HTMLInputElement)?.value as string;
+        // Use raw data instead of FormData
+        const userData = { name, email, password };        
        try {
             if(!email || !password) {
                return toast.error("Email and password are required");
            }
-            // Dispatching the loginUser mutation with email and password
-            // loginUser({ email, password })
-            //     .unwrap()
-            //     .then((response) => {
-            //         console.log("Login successful:", response);
-            //         if (response?.success) { 
-            //             localStorage.setItem("token", response?.data?.token);
-            //             toast.success(response?.message);
-            //             dispatch(setToken(response?.data?.token));
-            //            setLoading(false)
-            //             router.push('/');
-            //         } 
-            //     })
-            //     .catch((error) => {
-            //         setLoading(false)
-            //         console.error("Login failed inside:", error);
-            //         toast.error(error?.data?.message +'inside' || "Login failed inside");
-            //     });
+            // Dispatching the Register mutation with email and password
+            registerUser(userData)
+                .unwrap()
+                .then((response) => {
+                    console.log("Register successful:", response);
+                    if (response?.success) { 
+                        toast.success(response?.message);
+                       setLoading(false)
+                        router.push('/login');
+                    } 
+                })
+                .catch((error) => {
+                    setLoading(false)
+                    console.error("Login failed inside:", error);
+                    toast.error(error?.data?.message +'inside' || "Login failed inside");
+                });
            
        } catch (error) {
         setLoading(false)
@@ -76,13 +72,13 @@ const Page = () => {
                   <p className=" text-gray-600 text-start font-semibold text-xl lg:text-2xl">
                             Sign Up to your accountgin
                         </p>
-                    {/* Email Input */}
+                    {/* Name Input */}
                     <div className="mb-4">
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                             Name
                         </label>
                         <input
-                            type="name"
+                            type="text"
                             id="name"
                             name="name"
                             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"

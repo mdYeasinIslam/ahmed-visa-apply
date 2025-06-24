@@ -7,12 +7,11 @@ import type {
 } from "@reduxjs/toolkit/query";
 import { RootState } from "../store";
 import { logout, setAccessToken } from "../features/auth";
+import Cookies from "js-cookie";
+
 
 const baseQuery = fetchBaseQuery({
-  // baseUrl: "https://pamelam.code-commando.com/api",
-  baseUrl: "https://roof-cost.onrender.com/api/v1",
-  // baseUrl: "https://arcroofs.com/api/v1",
-  // baseUrl: "http://localhost:3000/api",
+  baseUrl: "http://10.0.10.121:5000/api/v1",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth?.accessToken;
     if (token) {
@@ -36,9 +35,12 @@ const baseQueryWithReauth: BaseQueryFn<
       {
         url: "/auth/refresh-token",
         method: "POST",
+          body: {
+          refreshToken: Cookies.get('refreshToken'), // Get refresh token from cookie
+        },
       },
       api,
-      extraOptions
+      extraOptions 
     );
 
     if (refreshResult.data) {
