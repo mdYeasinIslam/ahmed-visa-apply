@@ -1,21 +1,19 @@
 'use client';
 import React, { FormEvent, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-// import { useAppDispatch } from "@/redux/hooks";
-// import { useLoginUserMutation } from "@/redux/services/auth/authApi";
-// import { setToken } from "@/redux/services/auth/authSlice";
 import { toast } from "sonner";
 import LoadingSpinner from "@/app/loading";
 import Link from "next/link";
 import SubmitButton from "@/components/Auth/SubmitButton";
-// import LoadingSpinner from "@/app/loading";
+import { useLoginUserMutation } from "@/redux/service/auth/authApi";
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { setUser } from "@/redux/features/auth";
 
 const Page = () => {
-    // Importing the useAppDispatch hook to dispatch actions
-    // const dispatch = useAppDispatch()
-    // Using the loginUser mutation from authApi
-    // const [loginUser] = useLoginUserMutation()
-    //  const router = useRouter();
+    const dispatch = useAppDispatch()
+    const [loginUser] = useLoginUserMutation()
+     const router = useRouter();
     // State to manage password visibility
     const [showPassword, setShowPassword] = useState(false);
     const togglePasswordVisibility = () => {
@@ -26,33 +24,39 @@ const Page = () => {
     const handleSubmit = (e: FormEvent<HTMLFormElement | undefined>) => {
         setLoading(true)
         e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const email = formData.get("email");
-        const password = formData.get("password");
-        // console.log(email, password);
-        
+        const email = e.currentTarget?.email.value as string
+        const password=e.currentTarget?.password.value as string
        try {
             if(!email || !password) {
                return toast.error("Email and password are required");
            }
             // Dispatching the loginUser mutation with email and password
-            // loginUser({ email, password })
-            //     .unwrap()
-            //     .then((response) => {
-            //         console.log("Login successful:", response);
-            //         if (response?.success) { 
-            //             localStorage.setItem("token", response?.data?.token);
-            //             toast.success(response?.message);
-            //             dispatch(setToken(response?.data?.token));
-            //            setLoading(false)
-            //             router.push('/');
-            //         } 
-            //     })
-            //     .catch((error) => {
-            //         setLoading(false)
-            //         console.error("Login failed inside:", error);
-            //         toast.error(error?.data?.message +'inside' || "Login failed inside");
-            //     });
+            loginUser({ email, password })
+                .unwrap()
+                .then((response) => {
+                    console.log("Login successful:", response);
+                    if (response?.success) { 
+                        dispatch(setUser({
+                          user : response?.data?.user,
+                          accessToken:response?.data?.accessToken,
+                          refreshToken:response?.data?.refreshToken
+                        }))
+                        //store refresh token in cookies
+                        document.cookie = `refreshToken=${response.data.refreshToken}; path=/; secure; HttpOnly; SameSite=Strict`;
+                        document.cookie = `accessToken=${response.data.accessToken}; path=/; secure; SameSite=Strict`;
+                        
+                        toast.success(response?.message);
+                        
+                        // dispatch(setToken(response?.data?.token));
+                        setLoading(false)
+                        router.push('/');
+                    } 
+                })
+                .catch((error) => {
+                    setLoading(false)
+                    console.error("Login failed inside:", error);
+                    toast.error(error?.data?.message +'inside' || "Login failed inside");
+                });
            
        } catch (error) {
         setLoading(false)
@@ -91,9 +95,10 @@ const Page = () => {
                     </div>
 
                     {/* Password Input */}
-                    <div className="mb-6 relative">
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                            Password
+                    <div className="mb-6 relative ">
+                        <label htmlFor="password" className=" flex justify-between items-center text-sm font-medium text-gray-700 ">
+                            <span>Password</span>
+                            <Link href={'forget-pass'} className="hover:underline cursor-pointer">Forgot Password </Link>
                         </label>
                         <div onClick={togglePasswordVisibility} className="absolute right-3 top-8 text-gray-500 cursor-pointer z-10">
 
@@ -119,8 +124,8 @@ const Page = () => {
                     <SubmitButton name="Log In" />
                 </form>
                   <div>
-                        <h2 className="text-sm  text-gray-800  text-center">Don’t have an account?
-                          <Link href={'signup'} className="underline hover:text-blue-700">Register</Link>
+                        <h2 className="text-sm  text-gray-800  text-center">Don&quot;t have an account?
+                          <Link href={'signUp'} className="underline hover:text-blue-700">Register</Link>
                         </h2>
                         
                     </div>

@@ -194,8 +194,8 @@ const ForPc = ({ ref }: ForPcProps) => {
               </button>
             </Link>
           {
-            userAvailable ?
-            <Link href={'/log-in'} className="hover:bg-[#222b58] duration-500 rounded-md">
+            !userAvailable ?
+            <Link href={'/login'} className="hover:bg-[#222b58] duration-500 rounded-md">
 
               <button className="w-40 h-12  font-semibold text-black border rounded-md  hover:text-white border-[#1F2C5B]">
                 Log in
