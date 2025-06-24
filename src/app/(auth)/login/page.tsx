@@ -124,7 +124,7 @@ const Page = () => {
                     <SubmitButton name="Log In" />
                 </form>
                   <div>
-                        <h2 className="text-sm  text-gray-800  text-center">Don’t have an account?
+                        <h2 className="text-sm  text-gray-800  text-center">Don&quot;t have an account?
                           <Link href={'signUp'} className="underline hover:text-blue-700">Register</Link>
                         </h2>
                         
