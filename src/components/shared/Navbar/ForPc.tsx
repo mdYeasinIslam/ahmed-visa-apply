@@ -1,15 +1,45 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import NavMenu from "./NavMenu"
 import { Button, Dropdown, MenuProps } from "antd";
 import { User } from "lucide-react";
 import { FaPhone } from "react-icons/fa6";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import { logout } from "@/redux/features/auth";
+import { useRouter } from "next/navigation";
 
 interface ForPcProps {
   ref?: React.Ref<HTMLDivElement>;
 }
-const items: MenuProps['items'] = [
+
+const ForPc = ({ ref }: ForPcProps) => {
+  const user = useAppSelector(state=>state.auth.user);
+  const dispatch = useAppDispatch()
+  console.log(user)
+  const [userAvailable, setUserAvailable] = useState(false);
+  const router = useRouter()
+
+  useEffect(()=>{
+    if(user?.email){
+      setUserAvailable(true)
+    }
+  },[user])
+  const logOutHandle = ()=>{
+   dispatch(logout())
+    // Remove access token from localStorage
+  localStorage.removeItem("accessToken");
+
+  // Remove the refresh token and access token cookies
+  document.cookie = "refreshToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; HttpOnly; SameSite=Strict";
+  document.cookie = "accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; SameSite=Strict";
+
+  // Optionally, you can redirect the user to the login page
+  router.push("/login");
+  }
+
+
+  const items: MenuProps['items'] = [
   {
     key: '1',
     label: (
@@ -29,18 +59,12 @@ const items: MenuProps['items'] = [
   {
     key: '3',
     label: (
-      <p >
+      <p onClick={logOutHandle}>
         Log-out
       </p >
     ),
  }
 ]
-const ForPc = ({ ref }: ForPcProps) => {
-  // const [userAvailable, setUserAvailable] = useState(false);
-  const userAvailable = false
-  // const [dropdownOpenPricing, setDropdownOpenPricing] = useState(false);
-  // const pathname = usePathname();
-
   return (
     <div ref={ref}>
       <div className="container hidden lg:flex py-6 items-center justify-between border-b border-[#CFDFF0]">
@@ -58,132 +82,6 @@ const ForPc = ({ ref }: ForPcProps) => {
         </Link>
         <div className="flex items-center gap-5 text-base text-[#808080]">
           <NavMenu className="lg:items-center" isShowBorder={true} />
-          {/* "Other Service" Dropdown  */}
-          {/* <div
-            onMouseEnter={() => setDropdownOpen(true)}
-            onMouseLeave={() => setDropdownOpen(false)}
-            className="relative py-5 flex"
-          >
-            <div
-              // className="cursor-pointer  hover:text-red-primary transition duration-200 flex gap-3 items-center"
-
-              className={cn(
-                "cursor-pointer  hover:text-red-primary transition duration-200 flex gap-3 items-center",
-                pathname === "/gutter-fascia-soffit-repair-replacement" &&
-                  "text-red-primary ",
-                pathname === "/pressure-washing" && "text-red-primary "
-              )}
-            >
-              <p> Other Services</p>{" "}
-              <FaCaretDown className={cn(dropdownOpen && "rotate-180")} />
-            </div>
-
-           
-            {dropdownOpen && (
-              <div className="absolute -left-1/2 top-14 mt-2 bg-white shadow-md rounded-md w-72 p-2 z-[999999]">
-                <Link href={"/gutters"}>
-                  <div
-                    // className="cursor-pointer hover:text-red-primary hover:bg-slate-100 p-2 mb-2 rounded"
-                    className={cn(
-                      "cursor-pointer hover:text-red-primary hover:bg-slate-100 p-2 mb-2 rounded transition duration-200",
-                      pathname === "/gutters" &&
-                        "text-red-primary bg-slate-100 p-2 mb-2 rounded font-semibold"
-                    )}
-                  >
-                    Gutter
-                  </div>
-                </Link>
-                <Link href={"/window"}>
-                  <div
-                    // className="cursor-pointer hover:text-red-primary hover:bg-slate-100 p-2 mb-2 rounded"
-                    className={cn(
-                      "cursor-pointer hover:text-red-primary hover:bg-slate-100 p-2 mb-2 rounded transition duration-200",
-                      pathname === "/window" &&
-                        "text-red-primary bg-slate-100 p-2 mb-2 rounded font-semibold"
-                    )}
-                  >
-                    Windows
-                  </div>
-                </Link>
-                <Link href={"/commercial"}>
-                  <div
-                    // className="cursor-pointer hover:text-red-primary hover:bg-slate-100 p-2 rounded"
-                    className={cn(
-                      "cursor-pointer hover:text-red-primary hover:bg-slate-100 p-2 mb-2 rounded transition duration-200",
-                      pathname === "/commercial" &&
-                        "text-red-primary bg-slate-100 p-2 mb-2 rounded font-semibold"
-                    )}
-                  >
-                    Commercial
-                  </div>
-                </Link>
-              </div>
-            )}
-          </div> */}
-          {/* <div className="h-5 border "></div> */}
-          {/* "pricing" Dropdown  */}
-          {/* <div
-            onMouseEnter={() => setDropdownOpenPricing(true)}
-            onMouseLeave={() => setDropdownOpenPricing(false)}
-            className="relative py-5 flex"
-          >
-            <div
-              // className="cursor-pointer  hover:text-red-primary transition duration-200 flex gap-3 items-center"
-
-              className={cn(
-                "cursor-pointer  hover:text-red-primary transition duration-200 flex gap-3 items-center",
-                pathname === "/pricing" && "text-red-primary ",
-                pathname === "/pricing" && "text-red-primary "
-              )}
-            >
-              <p>Pricing</p>{" "}
-              <FaCaretDown
-                className={cn(dropdownOpenPricing && "rotate-180")}
-              />
-            </div>
-
-           
-            {dropdownOpenPricing && (
-              <div className="absolute -left-1/2 top-14 mt-2 bg-white shadow-md rounded-md w-72 p-2 z-[999999]">
-                <Link href={"/pricing-cost-calculator/roofing"}>
-                  <div
-                    // className="cursor-pointer hover:text-red-primary hover:bg-slate-100 p-2 mb-2 rounded"
-                    className={cn(
-                      "cursor-pointer hover:text-red-primary hover:bg-slate-100 p-2 mb-2 rounded transition duration-200",
-                      pathname === "/pricing-cost-calculator/roofing" &&
-                        "text-red-primary bg-slate-100 p-2 mb-2 rounded font-semibold"
-                    )}
-                  >
-                    Roof Cost Calculator
-                  </div>
-                </Link>
-                <Link href={"/pricing-cost-calculator/siding"}>
-                  <div
-                    // className="cursor-pointer hover:text-red-primary hover:bg-slate-100 p-2 rounded"
-                    className={cn(
-                      "cursor-pointer hover:text-red-primary hover:bg-slate-100 p-2 mb-2 rounded transition duration-200",
-                      pathname === "/pricing-cost-calculator/siding" &&
-                        "text-red-primary bg-slate-100 p-2 mb-2 rounded font-semibold"
-                    )}
-                  >
-                    Siding Cost Calculator
-                  </div>
-                </Link>
-                <Link href={"/pricing-cost-calculator/window"}>
-                  <div
-                    // className="cursor-pointer hover:text-red-primary hover:bg-slate-100 p-2 rounded"
-                    className={cn(
-                      "cursor-pointer hover:text-red-primary hover:bg-slate-100 p-2 mb-2 rounded transition duration-200",
-                      pathname === "/pricing-cost-calculator/window" &&
-                        "text-red-primary bg-slate-100 p-2 mb-2 rounded font-semibold"
-                    )}
-                  >
-                    Window Cost Calculator
-                  </div>
-                </Link>
-              </div>
-            )}
-          </div> */}
         </div>
 
         <div className="flex gap-5">
@@ -202,10 +100,12 @@ const ForPc = ({ ref }: ForPcProps) => {
               </button>
             </Link>
             :
-
             <div className="">
               <Dropdown menu={{ items }} placement="topRight" arrow  className="w-40 h-12 bg-white font-semibold text-black border hover:bg-[#222b58] hover:text-white border-[#1F2C5B] rounded-md">
-                <Button><User className="border-2 rounded-full w-6 h-6 "/><h1>M Yeasin</h1></Button>
+                <Button>
+                  <User className="border-2 rounded-full w-6 h-6 "/>
+                    <h1>M Yeasin</h1>
+                  </Button>
               </Dropdown>
             </div>
 

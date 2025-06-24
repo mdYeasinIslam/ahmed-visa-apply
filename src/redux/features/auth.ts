@@ -52,7 +52,7 @@ const authSlice = createSlice({
       state.accessToken = null;
       // Remove the "roll" cookie
       document.cookie = "roll=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-      window.location.href = "/";
+      // window.location.href = "/login";
     },
   },
 });

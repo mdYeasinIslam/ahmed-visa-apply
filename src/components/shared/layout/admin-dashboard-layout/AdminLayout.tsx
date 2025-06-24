@@ -23,11 +23,11 @@ const navItems: MenuItem[] = [
     "/dashboard/blogs",
     <LuLayoutDashboard />
   ),
-  // getItem(
-  //   <Link href="/dashboard/about">About</Link>,
-  //   "/dashboard/about",
-  //   <LuLayoutDashboard />
-  // ),
+  getItem(
+    <p>Log Out</p>,
+    "logOut",
+    <LuLayoutDashboard />
+  ),
   // getItem(
   //   <Link href="/dashboard/reviews">Reviews</Link>,
   //   "/dashboard/reviews",
