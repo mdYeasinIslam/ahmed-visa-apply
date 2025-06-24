@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 // Reusable Badge component
@@ -42,6 +43,7 @@ const ActionSelect = ({ value }: { value: string }) => (
 
 const data = [
     {
+        id:1,
         name: "Emery",
         date: "19 May 25 03:55 AM",
         email: "emery@exa...",
@@ -51,6 +53,7 @@ const data = [
         action: "Processing",
     },
     {
+        id:2,
         name: "Terry",
         date: "19 May 25 03:55 AM",
         email: "emery@exa...",
@@ -60,6 +63,7 @@ const data = [
         action: "New",
     },
     {
+        id:3,
         name: "Marcus",
         date: "19 May 25 03:55 AM",
         email: "emery@exa...",
@@ -69,6 +73,7 @@ const data = [
         action: "New",
     },
     {
+        id:4,
         name: "Emerson",
         date: "19 May 25 03:55 AM",
         email: "emery@exa...",
@@ -78,6 +83,7 @@ const data = [
         action: "New",
     },
     {
+        id:5,
         name: "Paityn",
         date: "19 May 25 03:55 AM",
         email: "emery@exa...",
@@ -87,6 +93,7 @@ const data = [
         action: "Pending",
     },
     {
+        id:6,
         name: "Mira",
         date: "19 May 25 03:55 AM",
         email: "emery@exa...",
@@ -96,6 +103,7 @@ const data = [
         action: "Processing",
     },
     {
+        id:7,
         name: "Dulce",
         date: "19 May 25 03:55 AM",
         email: "emery@exa...",
@@ -105,6 +113,7 @@ const data = [
         action: "Processing",
     },
     {
+        id:8,
         name: "Ryan",
         date: "19 May 25 03:55 AM",
         email: "emery@exa...",
@@ -114,6 +123,7 @@ const data = [
         action: "Pending",
     },
     {
+        id:9,
         name: "Zain",
         date: "19 May 25 03:55 AM",
         email: "emery@exa...",
@@ -124,10 +134,10 @@ const data = [
     },
 ];
 
-const ApplicationTable = () => {
+const ApplicationTable = ({title}:{title:string}) => {
     return (
         <div className="">
-            <h2 className="text-xl font-semibold mb-6">Recent Applications</h2>
+            <h2 className="text-xl font-semibold mb-6">{title}</h2>
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
                 <input
                     type="text"
@@ -176,13 +186,15 @@ const ApplicationTable = () => {
                                     <ActionSelect value={row.action} />
                                 </td>
                                 <td className="px-4 py-3">
-                                    <button className="p-2 rounded hover:bg-gray-100">
-                                        <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                                            <circle cx="12" cy="12" r="1.5" />
-                                            <circle cx="19.5" cy="12" r="1.5" />
-                                            <circle cx="4.5" cy="12" r="1.5" />
-                                        </svg>
-                                    </button>
+                                    <Link href={`/dashboard/application/${row.id}`}>
+                                        <button className="p-2 rounded hover:bg-gray-100">
+                                            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="1.5" />
+                                                <circle cx="19.5" cy="12" r="1.5" />
+                                                <circle cx="4.5" cy="12" r="1.5" />
+                                            </svg>
+                                        </button>
+                                    </Link>
                                 </td>
                             </tr>
                         ))}

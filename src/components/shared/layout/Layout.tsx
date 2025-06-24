@@ -81,7 +81,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
         />
       </Sider>
 
-      <Layout>
+      <Layout className="pl-8 bg-white space-y-5 ">
         <Header
           style={{
             padding: 0,
@@ -89,11 +89,10 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            paddingRight: "24px",
-            paddingLeft: "24px",
           }}
+          className="lg:border-b lg:shadow-md  py-12 !px-14 "
         >
-          <div className="hidden lg:flex justify-between items-center w-full">
+          <div className="hidden lg:flex  w-full  ">
 
             <h2 className="text-xl  sm:text-2xl lg:text-3xl font-semibold w-full ">
               Welcome back, Yeasin!
@@ -103,19 +102,15 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
               <span className="text-sm text-gray-500">Admin</span>
             </div>
           </div>
-          {/* <div className="hidden lg:block">
-            <PageWrapper title="Wekcome Back, Yeasin"/>
-
-          </div> */}
           <MenuOutlined
             onClick={() => setOpen(!open)}
             className="lg:!hidden text-2xl"
           />
         </Header>
         <Content
-          className="!overflow-y-auto !overflow-x-hidden bg-white"
+          className=" !overflow-x-hidden bg-white !pr-10"
           onClick={() => setOpen(false)}
-          style={{ padding: "24px", height: "100%" }}
+          style={{ padding: "0px", height: "100%" }}
         >
           {children}
         </Content>

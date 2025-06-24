@@ -10,7 +10,7 @@ const DashbaordPage = () => {
             <div className=" space-y-5">
                 <CardSection />
                 {/* <PerformanceChart/> */}
-                <ApplicationTable/>
+                <ApplicationTable title="Recent Applications"/>
             </div>
         </section> 
   )
