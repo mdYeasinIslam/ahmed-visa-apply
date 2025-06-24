@@ -44,12 +44,17 @@ const Page = () => {
                         //store refresh token in cookies
                         document.cookie = `refreshToken=${response.data.refreshToken}; path=/; secure; HttpOnly; SameSite=Strict`;
                         document.cookie = `accessToken=${response.data.accessToken}; path=/; secure; SameSite=Strict`;
+                        // localStorage.setItem('token',response.data.accessToken)
                         
                         toast.success(response?.message);
                         
                         // dispatch(setToken(response?.data?.token));
                         setLoading(false)
-                        router.push('/');
+                        if (response?.data?.user?.role === "ADMIN") {
+                        router.push("/dashboard"); 
+                      } else {
+                        router.push("/");  // Redirect normal user to home page
+                      }
                     } 
                 })
                 .catch((error) => {

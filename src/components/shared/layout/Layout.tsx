@@ -3,7 +3,7 @@
 
 import React, { ReactNode, useState } from "react";
 
-import { usePathname } from "next/navigation";
+import {  useRouter } from "next/navigation";
 
 import logo from "@/assets/logo/redTextLogo.png";
 import { MenuOutlined } from "@ant-design/icons";
@@ -11,6 +11,9 @@ import type { MenuProps } from "antd";
 import { Layout, Menu, theme } from "antd";
 import Image from "next/image";
 import Link from "next/link";
+import { useAppDispatch } from "@/redux/hooks/hooks";
+import { logout } from "@/redux/features/auth";
+import { toast } from "sonner";
 
 const { Header, Content,Sider } = Layout;
 
@@ -36,18 +39,30 @@ interface AdminLayoutProps {
 }
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
+  const dispatch = useAppDispatch()
   const [open, setOpen] = useState<boolean>(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
-  const pathname = usePathname();
-  console.log(pathname);
+  const router = useRouter()
 
   const [selectedKey, setSelectedKey] = useState("/dashboard");
 
   const handleClick = ({ key }: any) => {
     setSelectedKey(key);
+    console.log(key)
+    if(key ==='logOut'){
+      dispatch(logout())
+          // Remove access token from localStorage
+        localStorage.removeItem("accessToken");
+      
+        // Remove the refresh token and access token cookies
+        document.cookie = "refreshToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; HttpOnly; SameSite=Strict";
+        document.cookie = "accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; SameSite=Strict";
+      toast.success('Successfully loged Out')
+        // Optionally, you can redirect the user to the login page
+        router.push("/login");
+    }
   };
 
   return (
