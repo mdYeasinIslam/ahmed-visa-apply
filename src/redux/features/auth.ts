@@ -2,10 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type UserType = {
   email: string;
-  exp: number;
-  iat: number;
+  name:string;
+  imageUrl:string | null;
+  isEmailVarified:boolean
   role: string;
-  userId: string;
+  id: string;
 };
 interface AuthSate {
   user: UserType | null;
@@ -51,7 +52,7 @@ const authSlice = createSlice({
       state.user = null;
       state.accessToken = null;
       // Remove the "roll" cookie
-      document.cookie = "roll=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+      // document.cookie = "roll=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
       // window.location.href = "/login";
     },
   },

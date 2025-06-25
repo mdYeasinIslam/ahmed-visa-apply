@@ -8,6 +8,8 @@ import { FaPhone } from "react-icons/fa6";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { logout } from "@/redux/features/auth";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { FaAngleDown } from "react-icons/fa";
 
 interface ForPcProps {
   ref?: React.Ref<HTMLDivElement>;
@@ -25,6 +27,7 @@ const ForPc = ({ ref }: ForPcProps) => {
       setUserAvailable(true)
     }
   },[user])
+  
   const logOutHandle = ()=>{
    dispatch(logout())
     // Remove access token from localStorage
@@ -101,10 +104,26 @@ const ForPc = ({ ref }: ForPcProps) => {
             </Link>
             :
             <div className="">
-              <Dropdown menu={{ items }} placement="topRight" arrow  className="w-40 h-12 bg-white font-semibold text-black border hover:bg-[#222b58] hover:text-white border-[#1F2C5B] rounded-md">
+              <Dropdown menu={{ items }} placement="topRight" arrow  className=" h-12 bg-white font-semibold text-black border hover:bg-[#222b58] hover:text-white border-[#1F2C5B] rounded-md px-1">
                 <Button>
-                  <User className="border-2 rounded-full w-6 h-6 "/>
-                    <h1>M Yeasin</h1>
+                  {
+                    !user?.imageUrl ?
+                    <>
+                      <User className="border-2 rounded-full w-6 h-6 "/>
+                    </>
+                    :
+                    <>
+                      <Image
+                        src={user?.imageUrl}
+                        alt="User image"
+                        width={500}
+                        height={500}
+                        className="w-8 h-8 rounded-full"
+                      />
+                    </>
+                  }
+                    <h1 className="">{user?.name}</h1>
+                    <FaAngleDown />
                   </Button>
               </Dropdown>
             </div>

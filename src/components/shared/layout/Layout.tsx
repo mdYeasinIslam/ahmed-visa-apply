@@ -3,17 +3,13 @@
 
 import React, { ReactNode, useState } from "react";
 
-import {  useRouter } from "next/navigation";
-
 import logo from "@/assets/logo/redTextLogo.png";
 import { MenuOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { useAppDispatch } from "@/redux/hooks/hooks";
-import { logout } from "@/redux/features/auth";
-import { toast } from "sonner";
+import LogOutPage from "@/components/Dashboard/LogOut";
 
 const { Header, Content,Sider } = Layout;
 
@@ -39,30 +35,30 @@ interface AdminLayoutProps {
 }
 
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
   const [open, setOpen] = useState<boolean>(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  const router = useRouter()
+  // const router = useRouter()
 
   const [selectedKey, setSelectedKey] = useState("/dashboard");
 
   const handleClick = ({ key }: any) => {
     setSelectedKey(key);
     console.log(key)
-    if(key ==='logOut'){
-      dispatch(logout())
-          // Remove access token from localStorage
-        localStorage.removeItem("accessToken");
+    // if(key ==='logOut'){
+    //   dispatch(logout())
+    //       // Remove access token from localStorage
+    //     localStorage.removeItem("accessToken");
       
-        // Remove the refresh token and access token cookies
-        document.cookie = "refreshToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; HttpOnly; SameSite=Strict";
-        document.cookie = "accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; SameSite=Strict";
-      toast.success('Successfully loged Out')
-        // Optionally, you can redirect the user to the login page
-        router.push("/login");
-    }
+    //     // Remove the refresh token and access token cookies
+    //     document.cookie = "refreshToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; HttpOnly; SameSite=Strict";
+    //     document.cookie = "accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; SameSite=Strict";
+    //     toast.success('Successfully loged Out')
+    //     // Optionally, you can redirect the user to the login page
+    //     // router.push("/login");
+    // }
   };
 
   return (
@@ -94,6 +90,9 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
           inlineIndent={16}
           rootClassName="custom-sidebar"
         />
+        <div className="absolute bottom-1 w-full  py-2 duration-500 cursor-pointer">
+            <LogOutPage/>
+        </div>
       </Sider>
 
       <Layout className="pl-8 bg-white space-y-5 ">
