@@ -5,7 +5,7 @@ import React from 'react'
 
 const AuthImage = () => {
     const path = usePathname()
-  console.log(path)
+  // console.log(path)
   return (
     <figure className="w-full lg:h-screen">
       <Image

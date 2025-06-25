@@ -32,7 +32,7 @@ const Page = () => {
 //   const { token } = theme.useToken();
   const [current, setCurrent] = useState(1);
 
-
+  
   // const items = steps.map((item) => ({ key: item.title, title: item.title }));
 
   return (
