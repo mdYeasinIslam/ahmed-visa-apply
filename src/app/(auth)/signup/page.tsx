@@ -47,13 +47,13 @@ const Page = () => {
                 })
                 .catch((error) => {
                     setLoading(false)
-                    console.error("Login failed inside:", error);
-                    toast.error(error?.data?.message +'inside' || "Login failed inside");
+                    console.error("Register failed :", error);
+                    toast.error(error?.data?.message || "Register failed ");
                 });
            
        } catch (error) {
         setLoading(false)
-        console.error("Login failed outside:", error);
+        console.error("Register failed :", error);
        }
     };
 

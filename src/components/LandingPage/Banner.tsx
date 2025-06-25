@@ -24,10 +24,10 @@ export default function Banner() {
         </p>
       </div>
       
-       <Link href={'/eventCreate'}>
+       <Link href={'/apply-now'}>
             <Button
               size="large"
-              className="bg-[#1F2C5B] text-white hover:bg-gray-100 px-8 py-3 text-lg font-semibold rounded-lg"
+              className="bg-[#1F2C5B] text-white hover:bg-gray-100 px-10   py-6 text-lg font-semibold rounded-lg"
             >
               Apply Now
               <FiArrowUpRight className="bg-white rounded-full text-black text-xl"/>

@@ -6,49 +6,44 @@ import React, { FormEvent, useState } from "react";
 import { toast } from "sonner";
 import LoadingSpinner from "@/app/loading";
 import SubmitButton from "@/components/Auth/SubmitButton";
+import { useForgatPasswordMutation } from "@/redux/service/auth/authApi";
 // import LoadingSpinner from "@/app/loading";
 
 const Page = () => {
     // Importing the useAppDispatch hook to dispatch actions
     // const dispatch = useAppDispatch()
-    // Using the loginUser mutation from authApi
-    // const [loginUser] = useLoginUserMutation()
+    const [forgatPassword]  = useForgatPasswordMutation()
     //  const router = useRouter();
     const [loading,setLoading] = useState(false)
     
     const handleSubmit = (e: FormEvent<HTMLFormElement | undefined>) => {
         setLoading(true)
         e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const email = formData.get("email")
-        // console.log(email, password);
-        
+        const email = e.currentTarget?.email.value as string
        try {
             if(!email ) {
                return toast.error("Email and password are required");
            }
             // Dispatching the loginUser mutation with email and password
-            // loginUser({ email, password })
-            //     .unwrap()
-            //     .then((response) => {
-            //         console.log("Login successful:", response);
-            //         if (response?.success) { 
-            //             localStorage.setItem("token", response?.data?.token);
-            //             toast.success(response?.message);
-            //             dispatch(setToken(response?.data?.token));
-            //            setLoading(false)
-            //             router.push('/');
-            //         } 
-            //     })
-            //     .catch((error) => {
-            //         setLoading(false)
-            //         console.error("Login failed inside:", error);
-            //         toast.error(error?.data?.message +'inside' || "Login failed inside");
-            //     });
+            forgatPassword({email})
+                .unwrap()
+                .then((response) => {
+                    console.log("reset password link send to the email successfully:", response);
+                    if (response?.success) { 
+                        toast.success(response?.message + 'Please check your email');
+                         setLoading(false)
+                        // router.push('/');
+                    } 
+                })
+                .catch((error) => {
+                    setLoading(false)
+                    console.error("forgot-pass failed :", error);
+                    toast.error(error?.data?.message || "forgot-pass failed ");
+                });
            
        } catch (error) {
         setLoading(false)
-        console.error("Login failed outside:", error);
+        console.error("forgot-pass failed :", error);
        }
     };
 
