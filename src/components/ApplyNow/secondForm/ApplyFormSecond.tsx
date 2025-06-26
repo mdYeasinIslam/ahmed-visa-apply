@@ -8,13 +8,11 @@ import SelectField from '../SelectedField'
 import { FormDataTypes } from '@/types/formData'
 
 const ApplyFormSecond = ({
-    formData,
+   
     setFormData,
     setCurrent,
     current,
-    addSpouse,
-    addChild,
-    addVehicle
+    
 }: {
     formData: FormDataTypes
     setFormData: React.Dispatch<React.SetStateAction<FormDataTypes>>
