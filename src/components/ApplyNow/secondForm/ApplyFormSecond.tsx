@@ -36,14 +36,13 @@ const ApplyFormSecond = ({
             const [parentKey, childKey] = fieldParts as [keyof FormDataTypes, string];
             setFormData((prev) => {
 
-                const data = prev[parentKey][0]
+                const parentValue = prev[parentKey];
+                const data = Array.isArray(parentValue) ? parentValue[0] : {};
                 return ({
                     ...prev,
                     [parentKey]: [{
                         ...data,
                         [childKey]: value
-
-
                     }]
                 })
             });
