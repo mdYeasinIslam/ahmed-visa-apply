@@ -6,30 +6,33 @@ import { useState, useRef } from "react"
 import { Upload, FileText } from "lucide-react" 
 import {MdDelete  } from "react-icons/md"
 
-interface UploadedFile {
-  id: string
-  name: string
-  size: number
-  type: string
+// interface UploadedFile {
+//   id: string
+//   name: string
+//   size: number
+//   type: string
+// }
+type PropsType = {
+  uploadedFiles: File[]
+  setUploadedFiles: React.Dispatch<React.SetStateAction<File[]>>
 }
-
-export default function FileUploadSection() {
-  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
+export default function FileUploadSection({ uploadedFiles, setUploadedFiles }: PropsType) {
+// const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
   const [isDragOver, setIsDragOver] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
-console.log(uploadedFiles)
+  console.log(uploadedFiles)
 
   const handleFileSelect = (files: FileList | null) => {
     if (!files) return
-    
-    const newFiles: UploadedFile[] = Array.from(files).map((file) => ({
-      id: Math.random().toString(36).substr(2, 9),
-      name: file.name,
-      size: file.size,
-      type: file.type,
-    }))
 
-    setUploadedFiles((prev) => [...prev, ...newFiles])
+    // const newFiles: UploadedFile[] = Array.from(files).map((file) => ({
+    //   id: Math.random().toString(36).substr(2, 9),
+    //   name: file.name,
+    //   size: file.size,
+    //   type: file.type,
+    // }))
+
+    // setUploadedFiles((prev) => [...prev, ...newFiles])
   }
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -54,6 +57,21 @@ console.log(uploadedFiles)
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleFileSelect(e.target.files)
+    console.log(e.target.files)
+    if (e.target.files && e.target.files.length > 0 && e.target.files[0] as File) {
+
+      console.log(e.target.files[0])
+      if (e.target.files[0]) {
+
+        if (e.target.files) {
+          if (e.target.files) {
+            setUploadedFiles(prev => [...prev, e.target.files[0]])
+          }
+        }
+      }
+    }
+    if (e.target.files && e.target.files.length > 0) {
+    }
   }
 
   const removeFile = (id: string) => {
@@ -125,7 +143,7 @@ console.log(uploadedFiles)
                   </div>
                 </div>
                 <button
-                  onClick={() => removeFile(file.id)}
+                  onClick={() => removeFile(file?.id)}
                   className="text-gray-400 hover:text-red-500 transition-colors p-1"
                   title="Remove file"
                 >
