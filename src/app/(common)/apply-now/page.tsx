@@ -45,7 +45,7 @@ const Page = () => {
     firstName: "",
     lastName: "",
     passportNumber: "",
-    nationalId: "",
+    nationalID: "",
     dateOfBirth: "",
     gender: "",
     email: "",
@@ -53,29 +53,26 @@ const Page = () => {
     address: "",
     zipCode: "",
     effectiveDate: "",
-    duration: "",
-    spouses:
-    [{
+    duration: 0,
+    spouses: [{
       firstName: "",
       lastName: "",
       dateOfBirth: "",
       spouse: ""
     }]
     ,
-    children:
-   [ {
+    children: [{
       firstName: "",
       lastName: "",
       dateOfBirth: "",
       child: ""
     }]
     ,
-    vehicles:
-    {
+    vehicles: [{
       registerNumber: "",
       brand: "",
       serviceDate: ""
-    }
+    }]
     ,
   })
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([])
@@ -83,35 +80,44 @@ const Page = () => {
     setCurrent(current - 1);
   };
 
+
+
   const handleSubmit = () => {
     if (!uploadedFiles.length) {
       return toast.error('Please upload documents')
     }
-    console.log(formData,uploadedFiles)
+
     // Here you can handle the form submission, e.g., send formData to an API
     const formDataSubmit = new FormData();
 
     // Append text data (example: bodyData)
-    formDataSubmit.append("bodyData", JSON.stringify(formData));
+
+    formDataSubmit.append('bodyData', JSON.stringify(formData))
 
     uploadedFiles.forEach(file => {
-  
+
       formDataSubmit.append("documents", file);
     });
 
-    console.log(formDataSubmit)
 
-    visaApply(formDataSubmit)
-    .unwrap()
-    .then(res=>{
-      console.log('visa apply',res)
-    })
+    console.log(formData)
+    try {
+      visaApply(formDataSubmit)
+        .unwrap()
+        .then((response) => {
+          console.log('visa apply', response)
+          if(response?.success){
+            toast.success(response.message)
+          }
+        })
+    } catch (error) {
+      console.log(error)
+    }
     // setCurrent(current + 1);
-    };
+  };
 
-    // console.log(formData, uploadedFiles)
- 
-  // const items = steps.map((item) => ({ key: item.title, title: item.title }));
+  console.log(formData)
+
   return (
     <section className='container mx-auto mt-2'>
       {current > 1 && (
@@ -145,7 +151,12 @@ const Page = () => {
           current === 1 && (<ApplyForm formData={formData} setFormData={setFormData} setCurrent={setCurrent} current={current} />)
         }
         {
-          current === 2 && (<ApplyFormSecond formData={formData} setFormData={setFormData} setCurrent={setCurrent} current={current} />)
+          current === 2 && (<ApplyFormSecond
+            formData={formData}
+            setFormData={setFormData}
+            setCurrent={setCurrent}
+            current={current}
+          />)
         }
         {
           current === 3 && (<ApplyFormThird setUploadedFiles={setUploadedFiles} uploadedFiles={uploadedFiles} handleSubmit={handleSubmit} />)

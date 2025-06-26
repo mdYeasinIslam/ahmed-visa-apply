@@ -2,13 +2,13 @@
 import React from 'react';
 import SelectField from '../SelectedField';
 import InputField from '../InputField';
-import { ChildrenType, SpousesType, VehicleType } from '@/types/formData';
+import { ChildType, SpouseType, VehicleType } from '@/types/formData';
 
 type Props = {
     addCurrent: number
     //   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-    formData: SpousesType | ChildrenType | VehicleType;
+    formData: SpouseType | ChildType | VehicleType;
     add: string;
 };
 

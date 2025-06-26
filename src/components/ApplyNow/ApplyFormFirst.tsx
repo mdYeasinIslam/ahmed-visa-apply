@@ -28,37 +28,17 @@ const steps = [
 
 export default function Page({ formData, setFormData, setCurrent, current }: PropType) {
 
-    // const [formData, setFormData] = useState({
-    //     firstName: "",
-    //     lastName: "",
-    //     passportNumber: "",
-    //     nationalId: "",
-    //     dateOfBirth: "",
-    //     gender: "",
-    //     email: "",
-    //     phone: "",
-    //     address: "",
-    //     zipCode: "",
-    //     effectiveDate: "",
-    //     duration: "",
-    // })
-
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
         const { name, value } = e.target
+        console.log(name,value)
         setFormData((prev) => ({
             ...prev,
-            [name]: value,
+            [name]: name==='duration'?parseInt(value):value,
         }))
         // console.log(formData)
     }
-    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     // Here you can handle the form submission, e.g., send formData to an API
-    //     setCurrent(current + 1);
-    // };
-    // console.log(formData);
     return (
         <section className="  bg-white">
             <div>
@@ -101,8 +81,8 @@ export default function Page({ formData, setFormData, setCurrent, current }: Pro
                         />
                         <InputField
                             label="National ID"
-                            name="nationalId"
-                            value={formData.nationalId}
+                            name="nationalID"
+                            value={formData.nationalID}
                             onChange={handleInputChange}
                             placeholder="Enter Your National ID"
                             required
@@ -193,15 +173,15 @@ export default function Page({ formData, setFormData, setCurrent, current }: Pro
                         <SelectField
                             label="Duration"
                             name="duration"
-                            value={formData.duration}
+                            value={formData.duration | 0}
                             onChange={handleInputChange}
                             options={[
-                                { value: "", label: "Select your duration" },
-                                { value: "30-days", label: "30 Days" },
-                                { value: "90-days", label: "90 Days" },
-                                { value: "6-months", label: "6 Months" },
-                                { value: "1-year", label: "1 Year" },
-                                { value: "multiple-entry", label: "Multiple Entry" },
+                                { value: 0, label: "Select your duration" },
+                                { value: 30, label: "30 Days" },
+                                { value: 90, label: "90 Days" },
+                                { value: 180, label: "6 Months" },
+                                { value: 365, label: "1 Year" },
+                                // { value: "multiple-entry", label: "Multiple Entry" },
                             ]}
                             required
                         />
