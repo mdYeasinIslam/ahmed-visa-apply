@@ -9,7 +9,7 @@ interface ApplyResponse {
 
 const visaApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-
+    
    visaApply : builder.mutation<ApplyResponse,unknown>({
     query:(body)=>({
         url:'/visa-applications',

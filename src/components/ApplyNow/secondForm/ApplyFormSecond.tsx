@@ -8,14 +8,21 @@ import SelectField from '../SelectedField'
 import { FormDataTypes } from '@/types/formData'
 
 const ApplyFormSecond = ({
+    formData,
     setFormData,
     setCurrent,
     current,
+    addSpouse,
+    addChild,
+    addVehicle
 }: {
-    formData?: FormDataTypes
+    formData: FormDataTypes
     setFormData: React.Dispatch<React.SetStateAction<FormDataTypes>>
     setCurrent: React.Dispatch<React.SetStateAction<number>>
     current: number
+        addSpouse: () => void
+        addChild: () => void
+        addVehicle: () => void
 }) => {
     const [addCurrent, setAddCurrent] = useState(1)
 
@@ -29,13 +36,14 @@ const ApplyFormSecond = ({
             const [parentKey, childKey] = fieldParts as [keyof FormDataTypes, string];
             setFormData((prev) => {
 
-                const parentValue = prev[parentKey];
-                const data = Array.isArray(parentValue) && parentValue.length > 0 ? parentValue[0] : {};
+                const data = prev[parentKey][0]
                 return ({
                     ...prev,
                     [parentKey]: [{
                         ...data,
                         [childKey]: value
+
+
                     }]
                 })
             });

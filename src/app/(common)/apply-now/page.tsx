@@ -79,7 +79,35 @@ const Page = () => {
   const prev = () => {
     setCurrent(current - 1);
   };
+  const addSpouse = () => {
+    setFormData(prev => ({
+      ...prev,
+      spouses: [
+        ...prev.spouses,
+        { firstName: "", lastName: "", dateOfBirth: "", spouse: "" },
+      ],
+    }));
+  };
 
+  const addChild = () => {
+    setFormData(prev => ({
+      ...prev,
+      children: [
+        ...prev.children,
+        { firstName: "", lastName: "", dateOfBirth: "", child: "" },
+      ],
+    }));
+  };
+
+  const addVehicle = () => {
+    setFormData(prev => ({
+      ...prev,
+      vehicles: [
+        ...prev.vehicles,
+        { registerNumber: "", brand: "", serviceDate: "" },
+      ],
+    }));
+  };
 
 
   const handleSubmit = () => {
@@ -156,6 +184,9 @@ const Page = () => {
             setFormData={setFormData}
             setCurrent={setCurrent}
             current={current}
+            addSpouse={addSpouse}
+            addChild={addChild}
+            addVehicle={addVehicle}
           />)
         }
         {
