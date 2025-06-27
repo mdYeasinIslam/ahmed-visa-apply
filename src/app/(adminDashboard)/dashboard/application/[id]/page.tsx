@@ -1,5 +1,10 @@
+'use client'
+import LoadingSpinner from '@/app/loading';
 import Details from '@/components/Dashboard/application/Details'
-import React from 'react'
+import { useGetApplicationByIDQuery } from '@/redux/service/applyForm/visaApi';
+import { ApplicationType } from '@/types/application';
+import { useParams } from 'next/navigation';
+import React, { useState } from 'react'
 
 const dummyData = {
     name: "John Doe",
@@ -25,10 +30,28 @@ const handleDownload = (docId: string) => {
 }
 
 const Page = () => {
+    const param = useParams()
+    const { data, error, isLoading } = useGetApplicationByIDQuery(String(param.id))
+
+    const [application, setAppliations] = useState<ApplicationType | undefined>(data?.data);
+    React.useEffect(() => {
+        if (data?.data) {
+
+            setAppliations(data?.data);
+        }
+    }, [data?.data]);
+
+    if (isLoading) {
+        return <div><LoadingSpinner /></div>
+    }
+    if (error) {
+        return <div className="text-center py-10 text-red-500">Error loading Application data</div>
+    }
     return (
         <div>
             <Details
                 data={dummyData}
+                application={application}
                 onExport={handleExport}
                 onDownload={handleDownload}
             />

@@ -32,7 +32,7 @@ const CardSection = ({applications}:{applications:ApplicationType[]}) => {
             iconBg: "bg-[#232F5A]",
         },
     ];
-    console.log(totalPending)
+    // console.log(totalPending)
     return <div className="w-full flex flex-col md:flex-row gap-4 px-5 lg:px-0 xl:px-0">
         {cards.map((card, idx) => (
             <div

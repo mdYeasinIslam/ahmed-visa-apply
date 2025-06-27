@@ -6,10 +6,12 @@ import { ApplicationType } from '@/types/application'
 import React, { useState } from 'react'
 
 const Page = () => {
+
+
   const [pageForPagination, setPageForPagination] = useState(1)
   const [searchTerm, setSearchTerm] = useState('')
   const [status,setStatus] = useState('')
-  const { data, error, isLoading } = useGetVisaApplicationsQuery({ page: pageForPagination, limit: 10, searchTerm ,status})
+  const { data, error, isLoading ,refetch} = useGetVisaApplicationsQuery({ page: pageForPagination, limit: 10, searchTerm ,status})
 
   const [applications, setAppliations] = useState<ApplicationType[]>(data?.data || []);
   React.useEffect(() => {
@@ -19,6 +21,7 @@ const Page = () => {
   }, [data?.data]);
 
   // console.log(status)
+
 
 
   if (isLoading) {
@@ -37,6 +40,7 @@ const Page = () => {
         setPageForPagination={setPageForPagination}
         setSearchTerm={setSearchTerm}
         setStatus={setStatus}
+        refetch={refetch}
       />
     </div>
   )

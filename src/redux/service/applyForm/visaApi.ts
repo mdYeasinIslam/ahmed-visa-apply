@@ -13,14 +13,22 @@ type ApplicationResponse = {
   data: ApplicationType[]
   meta?: { page: number, limit: number, total: number, totalPage: number };
 }
+type ApplicationByIdResponse = {
+  success: boolean,
+  message: string,
+  data: ApplicationType
+}
+
+
+type UpdateResponse = {
+  success: boolean,
+  message: string,
+  data: ApplicationType
+ 
+}
 const visaApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // getVisaApplications: builder.query<ApplicationResponse, { limit: number }>({
-    //   query: ({ limit }) => ({
-    //     url: `/visa-applications`,
-    //     params: { limit: String(limit) }
-    //   }),
-    // }),
+  
     getVisaApplications: builder.query<ApplicationResponse, { page: number; limit: number, searchTerm: string, status: string }>({
       query: ({ page, limit, searchTerm, status }) => {
         const params: Record<string, string> = {
@@ -41,6 +49,13 @@ const visaApi = baseApi.injectEndpoints({
       },
       providesTags: ["visa"],
     }),
+
+    getApplicationByID: builder.query<ApplicationByIdResponse, string>({
+        query: (id) => `/visa-applications/${id}`,
+        providesTags: ["visa"]
+    }),
+
+
     visaApply: builder.mutation<ApplyResponse, unknown>({
       query: (body) => ({
         url: '/visa-applications',
@@ -49,12 +64,24 @@ const visaApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["visa"],
 
-    })
+    }),
+    updateApplicationStatus: builder.mutation<UpdateResponse,unknown>({
+      query: ({ id, body }) => ({
+        url: `/visa-applications/update-application-status/${id}`,
+        method: "PUT",
+        body,
+        }),
+        invalidatesTags: ["visa"]
+    }),
+    
+
   }),
 });
 
 export const {
   useGetVisaApplicationsQuery,
-  useVisaApplyMutation
+  useGetApplicationByIDQuery,
+  useVisaApplyMutation,
+  useUpdateApplicationStatusMutation
 } = visaApi;
 export const { endpoints: visaEndpoints } = visaApi;

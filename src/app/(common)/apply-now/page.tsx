@@ -127,7 +127,7 @@ const Page = () => {
       formDataSubmit.append("documents", file);
     });
 
-
+    
     console.log(formData)
     try {
       visaApply(formDataSubmit)
@@ -141,7 +141,7 @@ const Page = () => {
     } catch (error) {
       console.log(error)
     }
-    // setCurrent(current + 1);
+    setCurrent(current + 1);
   };
 
   console.log(formData)

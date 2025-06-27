@@ -15,12 +15,12 @@ const DashbaordPage = () => {
   const [applications, setAppliations] = useState<ApplicationType[]>(data?.data || []);
   React.useEffect(() => {
     if (data?.data) {
-      refetch()
+      
       setAppliations(data.data);
     }
-  }, [data?.data,refetch]);
+  }, [data?.data]);
 
-  console.log(status)
+  // console.log(status)
 
 
   if (isLoading) {
@@ -47,6 +47,7 @@ const DashbaordPage = () => {
           setPageForPagination={setPageForPagination}
           setSearchTerm={setSearchTerm}
           setStatus={setStatus}
+          refetch={refetch}
         />
       </div>
     </section>

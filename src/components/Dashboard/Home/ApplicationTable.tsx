@@ -1,23 +1,30 @@
+import { useUpdateApplicationStatusMutation } from "@/redux/service/applyForm/visaApi";
 import { ApplicationType } from "@/types/application";
+import { QueryActionCreatorResult, QueryDefinition } from "@reduxjs/toolkit/query";
 import Link from "next/link";
 import React from "react";
+import { toast } from "sonner";
 
 // Reusable Badge component
 const StatusBadge = ({ status }: { status: string }) => {
     let color = "";
     let bg = "";
     switch (status) {
-        case "Processing":
+        case "PROCESSING":
             color = "text-blue-600";
             bg = "bg-blue-100";
             break;
-        case "New":
+        case "APPROVED":
             color = "text-green-600";
             bg = "bg-green-100";
             break;
         case "Pending":
             color = "text-orange-600";
             bg = "bg-orange-100";
+            break;
+        case "REJECTED":
+            color = "text-red-600";
+            bg = "bg-red-100";
             break;
         default:
             color = "text-gray-600";
@@ -40,15 +47,26 @@ type PropType = {
     setPageForPagination: React.Dispatch<React.SetStateAction<number>>
     setSearchTerm: React.Dispatch<React.SetStateAction<string>>
     setStatus: React.Dispatch<React.SetStateAction<string>>
+    refetch: () => void
 }
 
-const ApplicationTable = ({ title, applications, totalPage, setPageForPagination, totalData, currentPage, setSearchTerm, setStatus }: PropType) => {
+const ApplicationTable = ({ title, applications, totalPage, setPageForPagination, totalData, currentPage, setSearchTerm, setStatus ,refetch}: PropType) => {
+    const [updateApplicationStatus] = useUpdateApplicationStatusMutation()
     const onChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        if(e.target.value==='all'){
+        if (e.target.value === 'all') {
             setStatus('')
         }
-        else{
+        else {
             setStatus(e.target.value)
+        }
+    }
+    const handleUpdateStatus = async(status:string,id:string) => {
+        
+      const res = await updateApplicationStatus({id,body:{status}})
+        console.log(res)
+        if(res?.data?.success){
+            toast.success(res?.data?.message)
+            refetch()
         }
     }
     return (
@@ -117,7 +135,7 @@ const ApplicationTable = ({ title, applications, totalPage, setPageForPagination
                                     {/* <ActionSelect value={row.status} /> */}
                                     <select
                                         className="bg-[#232C54] text-white rounded px-2 py-1 focus:outline-none"
-                                        // onChange={e=>setStatus(e.target.value)}
+                                        onChange={(e)=>handleUpdateStatus(e.target.value,row.id)}
                                         defaultValue={row.status}
                                     >
                                         <option value={row.status} disabled hidden>{row.status}</option>
