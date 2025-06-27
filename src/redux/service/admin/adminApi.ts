@@ -1,16 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from "@/redux/api/baseApi";
-import { ApplicationType } from "@/types/application";
+import { AdminProfileData } from "@/types/AdminType";
 
-type AdminProfileData = {
-    id: string;
-    name: string;
-    email: string;
-    phone: string;
-    passportNumber: string | null;
-    nationality: string;
-    imageUrl: string | null;
-};
+
 
 type AdminProfileResponse = {
     success: boolean;
@@ -29,18 +21,17 @@ type UpdateResponse = {
 const adminApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
   
-    getAdminData: builder.query<AdminProfileResponse, unknown>({
+    getAdminData: builder.query<AdminProfileResponse, void>({
       query: () => '/users/profile-data',
-      
       providesTags: ["admin"],
     }),
     updateAdminData: builder.mutation<UpdateResponse,unknown>({
-      query: ({ id, body }) => ({
-        url: `/visa-applications/update-application-status/${id}`,
+      query: ({ body }) => ({
+        url: `/users/update-profile`,
         method: "PUT",
         body,
         }),
-        invalidatesTags: ["visa"]
+        invalidatesTags: ["admin"]
     }),
     
 

@@ -17,22 +17,13 @@ type PropsType = {
   setUploadedFiles: React.Dispatch<React.SetStateAction<File[]>>
 }
 export default function FileUploadSection({ uploadedFiles, setUploadedFiles }: PropsType) {
-// const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
   const [isDragOver, setIsDragOver] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
-  console.log(uploadedFiles)
+ 
 
   const handleFileSelect = (files: FileList | null) => {
     if (!files) return
 
-    // const newFiles: UploadedFile[] = Array.from(files).map((file) => ({
-    //   id: Math.random().toString(36).substr(2, 9),
-    //   name: file.name,
-    //   size: file.size,
-    //   type: file.type,
-    // }))
-
-    // setUploadedFiles((prev) => [...prev, ...newFiles])
   }
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -59,18 +50,18 @@ export default function FileUploadSection({ uploadedFiles, setUploadedFiles }: P
     handleFileSelect(e.target.files)
     console.log(e.target.files)
     if (e.target.files && e.target.files.length > 0 && e.target.files[0] as File) {
-
+     
       console.log(e.target.files[0])
-      if (e.target.files[0]) {
+      console.log(uploadedFiles)
         setUploadedFiles(prev => [...prev, e.target.files[0]])
-      }
+      
     }
     if (e.target.files && e.target.files.length > 0) {
     }
   }
 
-  const removeFile = (id: string) => {
-    setUploadedFiles((prev) => prev.filter((file) => file.id !== id))
+  const removeFile = (name: string) => {
+    setUploadedFiles((prev) => prev.filter((file) => file.name !== name))
   }
 
   const formatFileSize = (bytes: number) => {
@@ -125,7 +116,7 @@ export default function FileUploadSection({ uploadedFiles, setUploadedFiles }: P
           <div className="mt-8 space-y-3">
             {uploadedFiles.map((file) => (
               <div
-                key={file.id}
+                key={file.name}
                 className="bg-gray-100 rounded-lg p-4 flex items-center justify-between hover:bg-gray-200 transition-colors"
               >
                 <div className="flex items-center space-x-3">
@@ -138,7 +129,7 @@ export default function FileUploadSection({ uploadedFiles, setUploadedFiles }: P
                   </div>
                 </div>
                 <button
-                  onClick={() => removeFile(file?.id)}
+                  onClick={() => removeFile(file?.name)}
                   className="text-gray-400 hover:text-red-500 transition-colors p-1"
                   title="Remove file"
                 >

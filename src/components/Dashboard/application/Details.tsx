@@ -18,15 +18,9 @@ type ApplicationDetailsProps = {
     application: ApplicationType | undefined
 };
 
-const statusOptions = [
-    "Processing",
-    "Approved",
-    "Rejected",
-    "Pending",
-];
 
 const Details: React.FC<ApplicationDetailsProps> = ({
-    data,
+   
     application
     // onExport,
     // onDownload,
@@ -145,22 +139,6 @@ const Details: React.FC<ApplicationDetailsProps> = ({
     );
 };
 
-const inputStyle: React.CSSProperties = {
-    width: "100%",
-    padding: "10px 12px",
-    border: "1px solid #1a1a4b",
-    borderRadius: 6,
-    marginTop: 4,
-    marginBottom: 12,
-    fontSize: 16,
-    background: "#fff",
-};
 
-const selectStyle: React.CSSProperties = {
-    ...inputStyle,
-    background: "#1a1a4b",
-    color: "#fff",
-    fontWeight: 500,
-};
 
 export default Details;

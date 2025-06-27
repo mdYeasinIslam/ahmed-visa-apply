@@ -1,6 +1,5 @@
 import { useUpdateApplicationStatusMutation } from "@/redux/service/applyForm/visaApi";
 import { ApplicationType } from "@/types/application";
-import { QueryActionCreatorResult, QueryDefinition } from "@reduxjs/toolkit/query";
 import Link from "next/link";
 import React from "react";
 import { toast } from "sonner";
