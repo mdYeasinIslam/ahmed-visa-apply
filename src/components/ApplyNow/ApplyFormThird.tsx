@@ -22,7 +22,7 @@ const ApplyFormThird = ({uploadedFiles , setUploadedFiles ,handleSubmit}: PropTy
 
   return (
     <div>
-      <div className='mb-20 my-28'>
+      <div className=' '>
         <FormHeader content='Upload Documents' />
       </div>
       <div className="space-y-6" >

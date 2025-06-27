@@ -6,6 +6,11 @@
   --background: #ffffff;
   --foreground: #171717;
 }
+.ant-menu-item-selected{
+  background-color: #1F2C5B !important; /* Match the default background color */
+  color: white !important; /* Match the default text color */
+  border-color: #1F2C5B !important; /* Match the default border color */
+}
 .no-hover:hover {
   background-color: #1F2C5B !important; /* Match the default background color */
   color: white !important; /* Match the default text color */

@@ -4,8 +4,11 @@ import type React from "react"
 
 import { useState } from "react"
 import { Mail } from "lucide-react"
+import { useContactUsMutation } from "@/redux/service/contact/contactApi"
+import { toast } from "sonner"
 
 export default function ContactSection() {
+  const [contactUs] = useContactUsMutation()
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -14,6 +17,7 @@ export default function ContactSection() {
   })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+   
     const { name, value } = e.target
     setFormData((prev) => ({
       ...prev,
@@ -25,6 +29,29 @@ export default function ContactSection() {
     e.preventDefault()
     // Handle form submission here
     console.log("Form submitted:", formData)
+    contactUs(formData)
+      .unwrap()
+      .then((response) => {
+        console.log("Success:", response)
+        // Reset form or show success message
+        if (response.success) {
+          // Show success message
+          toast.success(response.message || "Message sent successfully!")
+        } else {
+          toast.error(response.message || "Failed to send message.")
+        }
+        setFormData({
+          fullName: "",
+          email: "",
+          subject: "",
+          message: "",
+        })
+      })
+      .catch((error) => {
+        console.error("Error:", error)
+        // Show error message
+        toast.error(error.data?.message || "Failed to send message. Please try again later.")
+      })  
   }
 
   return (

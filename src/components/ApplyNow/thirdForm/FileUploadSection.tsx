@@ -6,12 +6,6 @@ import { useState, useRef } from "react"
 import { Upload, FileText } from "lucide-react" 
 import {MdDelete  } from "react-icons/md"
 
-// interface UploadedFile {
-//   id: string
-//   name: string
-//   size: number
-//   type: string
-// }
 type PropsType = {
   uploadedFiles: File[]
   setUploadedFiles: React.Dispatch<React.SetStateAction<File[]>>
@@ -53,7 +47,7 @@ export default function FileUploadSection({ uploadedFiles, setUploadedFiles }: P
      
       console.log(e.target.files[0])
       console.log(uploadedFiles)
-        setUploadedFiles(prev => [...prev, e.target.files[0]])
+      setUploadedFiles(prev => e.target.files ? [...prev, e.target.files[0]] : prev)
       
     }
     if (e.target.files && e.target.files.length > 0) {
@@ -89,7 +83,7 @@ export default function FileUploadSection({ uploadedFiles, setUploadedFiles }: P
             </div>
 
             <div>
-              <p className="text-lg font-medium text-gray-700 mb-2">Drop file or browse</p>
+              <p className="text-lg font-medium text-gray-700 mb-2"> Browse file</p>
               <p className="text-sm text-gray-500 mb-4">Format: PDF, Doc & Image file size: 25 MB</p>
             </div>
 
@@ -139,20 +133,6 @@ export default function FileUploadSection({ uploadedFiles, setUploadedFiles }: P
             ))}
           </div>
         )}
-
-        {/* Placeholder cards when no files uploaded
-        {uploadedFiles.length === 0 && (
-          <div className="mt-8 space-y-3">
-            {[1, 2, 3].map((index) => (
-              <div key={index} className="bg-gray-100 rounded-lg p-4 flex items-center space-x-3">
-                <div className="w-8 h-8 bg-red-100 rounded flex items-center justify-center flex-shrink-0">
-                  <FileText className="w-4 h-4 text-red-600" />
-                </div>
-                <p className="text-gray-500">Lorem ipsum dolor sit amet consectetur</p>
-              </div>
-            ))}
-          </div>
-        )} */}
       </div>
     </section>
   )

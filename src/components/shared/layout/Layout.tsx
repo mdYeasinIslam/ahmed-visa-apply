@@ -3,11 +3,10 @@
 
 import React, { ReactNode, useState } from "react";
 
-import logo from "@/assets/logo/redTextLogo.png";
+// import logo from "@/assets/logo/redTextLogo.png";
 import { MenuOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme } from "antd";
-import Image from "next/image";
 import Link from "next/link";
 import LogOutPage from "@/components/Dashboard/LogOut";
 import { useAppSelector } from "@/redux/hooks/hooks";
@@ -48,19 +47,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
 
   const handleClick = ({ key }: any) => {
     setSelectedKey(key);
-    // console.log(key)
-    // if(key ==='logOut'){
-    //   dispatch(logout())
-    //       // Remove access token from localStorage
-    //     localStorage.removeItem("accessToken");
-      
-    //     // Remove the refresh token and access token cookies
-    //     document.cookie = "refreshToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; HttpOnly; SameSite=Strict";
-    //     document.cookie = "accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; SameSite=Strict";
-    //     toast.success('Successfully loged Out')
-    //     // Optionally, you can redirect the user to the login page
-    //     // router.push("/login");
-    // }
+
   };
 
   return (
@@ -77,7 +64,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
           href={"/"}
           className="flex justify-center items-center py-3 border-b border-[#ffffff1a]"
         >
-          <Image className="w-[130px]" src={logo} alt="logo" />
+          {/* <Image className="w-[130px]" src={logo} alt="logo" /> */}
+          <h1 className="text-2xl font-semibold">Logo</h1>
         </Link>
 
         <Menu
@@ -90,14 +78,14 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
             fontWeight: "500",
           }}
           inlineIndent={16}
-          rootClassName="custom-sidebar"
+          rootClassName="custom-sidebar " 
         />
         <div className="absolute bottom-1 w-full  py-2 duration-500 cursor-pointer">
             <LogOutPage/>
         </div>
       </Sider>
 
-      <Layout className="pl-8 bg-white space-y-5 ">
+      <Layout className="pl-8 py-3 bg-white space-y-5 ">
         <Header
           style={{
             padding: 0,
@@ -106,12 +94,12 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
             alignItems: "center",
             justifyContent: "space-between",
           }}
-          className="lg:border-b lg:shadow-md  py-12  "
+          className="lg:border-b lg:shadow-md  xl:!py-10 "
         >
           <div className="hidden lg:flex  w-full px-0 lg:px-14 ">
 
             <h2 className="text-xl  sm:text-2xl lg:text-3xl font-semibold w-full ">
-              Welcome back, {user?.name}!
+              Welcome back, &quot;{user?.name}&quot;!
             </h2>
             <div className="flex  flex-col  text-left ">
               <span className="font-semibold text-lg">{user?.name}</span>

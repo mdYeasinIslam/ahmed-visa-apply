@@ -54,7 +54,7 @@ const ApplicationTable = ({ title, applications, totalPage, setPageForPagination
     const onChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
         if (e.target.value === 'all') {
             setStatus('')
-        }
+        } 
         else {
             setStatus(e.target.value)
         }

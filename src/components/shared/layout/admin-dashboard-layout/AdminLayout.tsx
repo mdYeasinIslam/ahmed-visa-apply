@@ -12,7 +12,7 @@ import { getItem, MenuItem } from "../Layout";
 
 const navItems: MenuItem[] = [
   getItem(
-    <Link href="/dashboard">Dashboard</Link>,
+    <Link href="/dashboard" >Dashboard</Link>,
     "/dashboard",
     <LuLayoutDashboard className="w-5 h-5"/>
   ),
@@ -26,17 +26,7 @@ const navItems: MenuItem[] = [
     "/dashboard/settings",
     <IoSettingsSharp className="w-5 h-5"/>
   ),
-  // getItem(
-  //   <p>Log Out</p>,
-  //   "logOut",
-  //   <TbLogout2 className="w-5 h-5"/>
 
-  // ),
-  // getItem(
-  //   <Link href="/dashboard/reviews">Reviews</Link>,
-  //   "/dashboard/reviews",
-  //   <LuLayoutDashboard />
-  // ),
 ];
 
 const SuperAdminLayout = ({ children }: { children: ReactNode }) => {

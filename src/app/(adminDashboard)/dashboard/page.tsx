@@ -15,12 +15,11 @@ const DashbaordPage = () => {
   const [applications, setAppliations] = useState<ApplicationType[]>(data?.data || []);
   React.useEffect(() => {
     if (data?.data) {
-      
+      refetch()
       setAppliations(data.data);
     }
   }, [data?.data]);
 
-  // console.log(status)
 
 
   if (isLoading) {
@@ -36,7 +35,7 @@ const DashbaordPage = () => {
       <div className=" space-y-5">
         <div>
 
-          <CardSection applications={applications} />
+          <CardSection />
         </div>
         {/* <PerformanceChart/> */}
         <ApplicationTable

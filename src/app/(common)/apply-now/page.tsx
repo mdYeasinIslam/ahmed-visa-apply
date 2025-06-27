@@ -136,12 +136,14 @@ const Page = () => {
           console.log('visa apply', response)
           if(response?.success){
             toast.success(response.message)
+            localStorage.setItem('applicationId', response?.data?.id)
             setCurrent(current + 1);
           }
         })
     } catch (error) {
       console.log(error)
     }
+    // setCurrent(current + 1);
   };
 
   console.log(formData)

@@ -5,7 +5,7 @@ import { ApplicationType } from "@/types/application";
 interface ApplyResponse {
   success: boolean
   message: string
-  data: []
+  data: ApplicationType
 }
 type ApplicationResponse = {
   success: boolean,
@@ -74,6 +74,17 @@ const visaApi = baseApi.injectEndpoints({
       invalidatesTags: ["visa"],
 
     }),
+    submitPaymentDoc: builder.mutation<ApplyResponse, unknown>({
+      query: ({id, body}) => ({
+        url: `/users/applications/${id}/payment-documents`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["visa"],
+
+    }),
+
+
     updateApplicationStatus: builder.mutation<UpdateResponse, unknown>({
       query: ({ id, body }) => ({
         url: `/visa-applications/update-application-status/${id}`,
@@ -92,6 +103,7 @@ export const {
   useGetApplicationByIDQuery,
   useGetEachUserApplicationsQuery,
   useVisaApplyMutation,
+  useSubmitPaymentDocMutation,
   useUpdateApplicationStatusMutation
 } = visaApi;
 export const { endpoints: visaEndpoints } = visaApi;
