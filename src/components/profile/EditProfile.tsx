@@ -2,49 +2,52 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import {  useEffect } from "react"
 import { X } from "lucide-react"
 
 import topImg from '../../../public/profile/topleft.png'
 import bottomImg from '../../../public/profile/righBottom.png'
 import Image from "next/image"
+import { AdminProfileData } from "@/types/AdminType"
+import { useUpdateAdminDataMutation } from "@/redux/service/admin/adminApi"
+import { toast } from "sonner"
 
 interface EditProfileModalProps {
   open: boolean
   handleOk: () => void
   handleCancel: () => void
+  adminData: AdminProfileData | undefined
 }
 
-export default function EditProfileModal({ open, handleOk, handleCancel }: EditProfileModalProps) {
-  const [formData, setFormData] = useState({
-    name: "John Smith",
-    email: "john@carbiologistics.com",
-    phoneNumber: "+1 (876) 555-0123",
-    passportNumber: "0123456789",
-    nationality: "USA",
-  })
+export default function EditProfileModal({ open, handleOk, handleCancel, adminData }: EditProfileModalProps) {
+    const [updateAdminData] = useUpdateAdminDataMutation()
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission here
-    console.log("Profile updated:", formData)
-    handleOk() // Close modal after successful save
-  }
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       handleCancel()
     }
   }
-
+ const updateAdminProfile = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const form = e.currentTarget as HTMLFormElement;
+    const name = (form.elements.namedItem('name') as HTMLInputElement)?.value;
+    const phone = (form.elements.namedItem('phoneNumber') as HTMLInputElement)?.value;
+    const passportNumber = (form.elements.namedItem('passportNumber') as HTMLInputElement)?.value;
+    const nationality = (form.elements.namedItem('nationality') as HTMLInputElement)?.value;
+    const data = {
+      name,
+      phone,
+      passportNumber,
+      nationality
+    }
+    const res = await updateAdminData({ body: data })
+    console.log(res)
+    if (res.data?.success) {
+      toast.success("User profile updated successfully")
+      handleOk()
+    }
+  }
   // Handle escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -105,7 +108,7 @@ export default function EditProfileModal({ open, handleOk, handleCancel }: EditP
         <div className="p-4 w-full h-full">
           <h2 className="text-2xl font-bold text-gray-900 text-center ">Edit Profile</h2>
 
-          <form onSubmit={handleSubmit} className="space-y-2">
+          <form onSubmit={updateAdminProfile} className="space-y-2"  >
             {/* Name */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 ">
@@ -115,8 +118,7 @@ export default function EditProfileModal({ open, handleOk, handleCancel }: EditP
                 type="text"
                 id="name"
                 name="name"
-                value={formData.name}
-                onChange={handleInputChange}
+                defaultValue={adminData?.name}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
                 required
               />
@@ -131,8 +133,8 @@ export default function EditProfileModal({ open, handleOk, handleCancel }: EditP
                 type="email"
                 id="email"
                 name="email"
-                value={formData.email}
-                onChange={handleInputChange}
+                value={adminData?.email}
+                readOnly
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
                 required
               />
@@ -147,8 +149,7 @@ export default function EditProfileModal({ open, handleOk, handleCancel }: EditP
                 type="tel"
                 id="phoneNumber"
                 name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleInputChange}
+                defaultValue={adminData?.phone || 'N/A'}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
                 required
               />
@@ -163,8 +164,7 @@ export default function EditProfileModal({ open, handleOk, handleCancel }: EditP
                 type="text"
                 id="passportNumber"
                 name="passportNumber"
-                value={formData.passportNumber}
-                onChange={handleInputChange}
+                defaultValue={adminData?.passportNumber || 'N/A'}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
                 required
               />
@@ -179,8 +179,7 @@ export default function EditProfileModal({ open, handleOk, handleCancel }: EditP
                 type="text"
                 id="nationality"
                 name="nationality"
-                value={formData.nationality}
-                onChange={handleInputChange}
+                defaultValue={adminData?.nationality || 'N/A'}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
                 required
               />

@@ -24,11 +24,11 @@ type UpdateResponse = {
   success: boolean,
   message: string,
   data: ApplicationType
- 
+
 }
 const visaApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-  
+
     getVisaApplications: builder.query<ApplicationResponse, { page: number; limit: number, searchTerm: string, status: string }>({
       query: ({ page, limit, searchTerm, status }) => {
         const params: Record<string, string> = {
@@ -50,9 +50,18 @@ const visaApi = baseApi.injectEndpoints({
       providesTags: ["visa"],
     }),
 
+    getEachUserApplications: builder.query<ApplicationResponse, { page: number; limit: number}>({
+      query: ({ page, limit }) => ({
+          url: `/users/applications`,
+          page: String(page),
+          limit: String(limit),
+      }),
+      providesTags: ["visa"],
+    }),
+
     getApplicationByID: builder.query<ApplicationByIdResponse, string>({
-        query: (id) => `/visa-applications/${id}`,
-        providesTags: ["visa"]
+      query: (id) => `/visa-applications/${id}`,
+      providesTags: ["visa"]
     }),
 
 
@@ -65,15 +74,15 @@ const visaApi = baseApi.injectEndpoints({
       invalidatesTags: ["visa"],
 
     }),
-    updateApplicationStatus: builder.mutation<UpdateResponse,unknown>({
+    updateApplicationStatus: builder.mutation<UpdateResponse, unknown>({
       query: ({ id, body }) => ({
         url: `/visa-applications/update-application-status/${id}`,
         method: "PUT",
         body,
-        }),
-        invalidatesTags: ["visa"]
+      }),
+      invalidatesTags: ["visa"]
     }),
-    
+
 
   }),
 });
@@ -81,6 +90,7 @@ const visaApi = baseApi.injectEndpoints({
 export const {
   useGetVisaApplicationsQuery,
   useGetApplicationByIDQuery,
+  useGetEachUserApplicationsQuery,
   useVisaApplyMutation,
   useUpdateApplicationStatusMutation
 } = visaApi;
