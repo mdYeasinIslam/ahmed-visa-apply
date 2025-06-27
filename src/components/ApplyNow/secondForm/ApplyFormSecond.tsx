@@ -67,8 +67,8 @@ const ApplyFormSecond = ({
     }
 
     return (
-        <section className="my-36">
-            <div className="my-28">
+        <section className="my-16 xl:my-36">
+            <div className="mb-8">
                 <FormHeader content="Add spouse/child/vehicle" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-between gap-5 mb-8">

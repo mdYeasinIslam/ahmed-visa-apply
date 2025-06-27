@@ -1,8 +1,10 @@
+'use client'
 import { Button } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import { FaArrowCircleLeft } from 'react-icons/fa'
 import { toast } from 'sonner';
 import PaymentDetails from './finalForm/PaymentDetails';
+import FileUploadModal from './finalForm/FileUploadModal';
 const steps = [
   {
     title: '',
@@ -22,7 +24,22 @@ const steps = [
   },
 ];
 const ApplyFormFinal = ({setCurrent,current}:{ setCurrent: React.Dispatch<React.SetStateAction<number>>, current:number}) => {
-    const prev = () => {
+    const [open, setOpen] = useState(false);
+  
+      const showModal = () => {
+          setOpen(true);
+      };
+      const handleOk = () => {
+          setOpen(false);
+      };
+  
+      const handleCancel = () => {
+          setOpen(false);
+      };
+  
+   
+  
+  const prev = () => {
         setCurrent(current - 1);
       };
       const finalHandle =() =>{
@@ -32,7 +49,7 @@ const ApplyFormFinal = ({setCurrent,current}:{ setCurrent: React.Dispatch<React.
     <section>
         <div>
             <div>
-              <PaymentDetails/>
+              <PaymentDetails showModal={showModal}/>
             </div>
           
             <div className='flex items-center '>
@@ -51,6 +68,14 @@ const ApplyFormFinal = ({setCurrent,current}:{ setCurrent: React.Dispatch<React.
                 )}
             </div>
         </div>
+        {
+          open && (
+            <FileUploadModal
+                open={open}
+                handleOk={handleOk}
+                handleCancel={handleCancel}
+            />)
+        }
     </section>
   )
 }

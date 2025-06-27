@@ -9,7 +9,7 @@ interface AdminLayoutProps {
 
 const Layout = ({ children }: AdminLayoutProps) => {
   const user = useAppSelector(state=>state.auth.user)
-  console.log(user)
+
   if(user?.role !== 'ADMIN'){
     return redirect('/')
   }

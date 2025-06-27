@@ -42,7 +42,7 @@ export default function Page({ formData, setFormData, setCurrent, current }: Pro
     return (
         <section className="  bg-white">
             <div>
-                <div className="my-28">
+                <div className="">
                     <FormHeader content="Personal Info" />
 
                 </div>

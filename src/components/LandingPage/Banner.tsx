@@ -5,7 +5,7 @@ import { FiArrowUpRight } from "react-icons/fi";
 export default function Banner() {
   return (
     <section
-      className="relative z-10 h-[680px] bg-cover bg-center bg-no-repeat"
+      className="relative z-10 lg:h-[500px] xl:h-[680px] bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: "url(/banner.png)",
       }}

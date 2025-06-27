@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Upload } from "lucide-react"
 
-export default function PaymentDetails() {
+export default function PaymentDetails({showModal}: { showModal: () => void }) {
   const [isConfirmed, setIsConfirmed] = useState(false)
 
   return (
@@ -103,6 +103,7 @@ export default function PaymentDetails() {
           <div className="text-center">
             <button
             //   disabled={!isConfirmed}
+            onClick={showModal}
               className={`inline-flex items-center px-6 py-3 rounded-lg font-medium transition-colors ${
                 isConfirmed
                   ? "bg-blue-600 text-white hover:bg-blue-700"
