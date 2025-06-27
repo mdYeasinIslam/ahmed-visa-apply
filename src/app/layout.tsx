@@ -47,7 +47,7 @@ export default function RootLayout({
                 {children}
               </div>
               <ScrollToTopButton />
-              <Toaster position="top-right"/>
+              <Toaster />
             </>
           </ReduxProvider>
         </NextUiProvider>

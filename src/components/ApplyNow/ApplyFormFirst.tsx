@@ -1,73 +1,53 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
 import { FaCircleArrowRight } from "react-icons/fa6";
 import InputField from "./InputField";
 import SelectField from "./SelectedField";
 import FormHeader from "./FormHeader";
+import { PropType } from "@/types/formData";
 
 const steps = [
-  {
-    title: '',
-    content: 'First-content',
-  },
-  {
-    title: '',
-    content: 'Second-content',
-  },
-  {
-    title: '',
-    content: 'Last-content',
-  },
-  {
-    title: '',
-    content: 'Last-content',
-  },
+    {
+        title: '',
+        content: 'First-content',
+    },
+    {
+        title: '',
+        content: 'Second-content',
+    },
+    {
+        title: '',
+        content: 'Last-content',
+    },
+    {
+        title: '',
+        content: 'Last-content',
+    },
 ];
 
-export default function Page({setCurrent,current}:{ setCurrent: React.Dispatch<React.SetStateAction<number>>, current:number}) {
-
-    const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        passportNumber: "",
-        nationalId: "",
-        dateOfBirth: "",
-        gender: "",
-        email: "",
-        phoneNumber: "",
-        address: "",
-        zipCode: "",
-        effectiveDate: "",
-        duration: "",
-    })
+export default function Page({ formData, setFormData, setCurrent, current }: PropType) {
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
         const { name, value } = e.target
+        console.log(name,value)
         setFormData((prev) => ({
             ...prev,
-            [name]: value,
+            [name]: name==='duration'?parseInt(value):value,
         }))
         // console.log(formData)
     }
-const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // Here you can handle the form submission, e.g., send formData to an API
-        console.log(formData);
-        setCurrent(current + 1);
-    };
     return (
         <section className="  bg-white">
             <div>
                 <div className="my-28">
-                    <FormHeader content="Personal Info"/>
+                    <FormHeader content="Personal Info" />
 
                 </div>
 
-                <form className="space-y-6" onSubmit={handleSubmit}>
+                <form className="space-y-6" >
                     {/* First Row */}
                     <div className="md:grid md:grid-cols-2 gap-6">
                         <InputField
@@ -93,6 +73,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                         <InputField
                             label="Passport Number"
                             name="passportNumber"
+                            type="number"
                             value={formData.passportNumber}
                             onChange={handleInputChange}
                             placeholder="Enter Passport Number"
@@ -100,10 +81,11 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                         />
                         <InputField
                             label="National ID"
-                            name="nationalId"
-                            value={formData.nationalId}
+                            name="nationalID"
+                            value={formData.nationalID}
                             onChange={handleInputChange}
                             placeholder="Enter Your National ID"
+                            required
                         />
                     </div>
 
@@ -116,7 +98,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                             value={formData.dateOfBirth}
                             onChange={handleInputChange}
                             required
-                            // icon={<Calendar className="h-5 w-5 text-gray-400" />}
+                        // icon={<Calendar className="h-5 w-5 text-gray-400" />}
                         />
                         <SelectField
                             label="Gender"
@@ -130,6 +112,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                                 { value: "female", label: "Female" },
                                 { value: "other", label: "Other" },
                             ]}
+
                         />
                     </div>
 
@@ -146,12 +129,14 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                         />
                         <InputField
                             label="Phone Number"
-                            name="phoneNumber"
-                            type="tel"
-                            value={formData.phoneNumber}
+                            name="phone"
+                            type="number"
+                            value={formData.phone}
                             onChange={handleInputChange}
                             placeholder="Enter Your phone number"
+                            required
                         />
+
                     </div>
 
                     {/* Fifth Row */}
@@ -183,38 +168,43 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                             value={formData.effectiveDate}
                             onChange={handleInputChange}
                             placeholder="7/06/2025"
+                            required
                         />
                         <SelectField
                             label="Duration"
                             name="duration"
-                            value={formData.duration}
+                            value={formData.duration | 0}
                             onChange={handleInputChange}
                             options={[
-                                { value: "", label: "Select your duration" },
-                                { value: "30-days", label: "30 Days" },
-                                { value: "90-days", label: "90 Days" },
-                                { value: "6-months", label: "6 Months" },
-                                { value: "1-year", label: "1 Year" },
-                                { value: "multiple-entry", label: "Multiple Entry" },
+                                { value: 0, label: "Select your duration" },
+                                { value: 30, label: "30 Days" },
+                                { value: 90, label: "90 Days" },
+                                { value: 180, label: "6 Months" },
+                                { value: 365, label: "1 Year" },
+                                // { value: "multiple-entry", label: "Multiple Entry" },
                             ]}
+                            required
                         />
                     </div>
 
                     {/* Submit Button */}
-                    <div  className="flex justify-center pt-6">
+                    <div className="flex justify-center pt-6">
                         {/* <button type="submit"> 
 
                             <StepsButton  setCurrent={setCurrent} current={current}/>
                         </button> */}
-                         {current < steps.length && (
-                            <button type="submit" className="bg-[#1F2C5B] flex items-center gap-2 text-white px-  rounded-lg font-semibold px-12 py-3 hover:bg-blue-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
-                                <span>Next</span> <FaCircleArrowRight className='w-5 h-5'/>
-                    
-                            </button>
-                        )}
-                      
+
                     </div>
                 </form>
+                <div className="flex justify-center">
+
+                    {current < steps.length && (
+                        <button onClick={() => setCurrent(current + 1)} type="submit" className="bg-[#1F2C5B] flex items-center gap-2 text-white px-  rounded-lg font-semibold px-12 py-3 hover:bg-blue-900 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                            <span>Next</span> <FaCircleArrowRight className='w-5 h-5' />
+
+                        </button>
+                    )}
+                </div>
             </div>
         </section>
     )

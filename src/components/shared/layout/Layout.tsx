@@ -10,6 +10,7 @@ import { Layout, Menu, theme } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import LogOutPage from "@/components/Dashboard/LogOut";
+import { useAppSelector } from "@/redux/hooks/hooks";
 
 const { Header, Content,Sider } = Layout;
 
@@ -40,13 +41,14 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const user = useAppSelector(state=>state.auth.user)
   // const router = useRouter()
 
   const [selectedKey, setSelectedKey] = useState("/dashboard");
 
   const handleClick = ({ key }: any) => {
     setSelectedKey(key);
-    console.log(key)
+    // console.log(key)
     // if(key ==='logOut'){
     //   dispatch(logout())
     //       // Remove access token from localStorage
@@ -104,21 +106,21 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, menu }) => {
             alignItems: "center",
             justifyContent: "space-between",
           }}
-          className="lg:border-b lg:shadow-md  py-12 !px-14 "
+          className="lg:border-b lg:shadow-md  py-12  "
         >
-          <div className="hidden lg:flex  w-full  ">
+          <div className="hidden lg:flex  w-full px-0 lg:px-14 ">
 
             <h2 className="text-xl  sm:text-2xl lg:text-3xl font-semibold w-full ">
-              Welcome back, Yeasin!
+              Welcome back, {user?.name}!
             </h2>
-            <div className="flex  flex-col items-center  ">
-              <span className="font-semibold text-lg">Yeasin!</span>
-              <span className="text-sm text-gray-500">Admin</span>
+            <div className="flex  flex-col  text-left ">
+              <span className="font-semibold text-lg">{user?.name}</span>
+              <span className="text-sm text-gray-500">{user?.role}</span>
             </div>
           </div>
           <MenuOutlined
             onClick={() => setOpen(!open)}
-            className="lg:!hidden text-2xl"
+            className="lg:!hidden text-xl"
           />
         </Header>
         <Content

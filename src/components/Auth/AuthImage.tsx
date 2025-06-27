@@ -23,7 +23,7 @@ const AuthImage = () => {
             : '/auth/login.png'
         }
         alt="Auth Image"
-        className="w-80 md:h-full mx-auto md:w-full object-cover brightness-50 rounded-lg"
+        className="w-80 md:h-full mx-auto md:w-full object-cover brightness-50 rounded-lg lg:rounded-none rounded-r-lg"
         width={1000}
         height={1000}
       />

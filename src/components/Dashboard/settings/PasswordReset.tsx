@@ -1,6 +1,8 @@
+'use client'
 import React from 'react'
 
 const PasswordReset = () => {
+  
   return (
     <div className=' spacey-5 my-20'>
         <h1 className='text-2xl font-semibold mb-5'>Password Management</h1>

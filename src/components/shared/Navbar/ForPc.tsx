@@ -18,7 +18,7 @@ interface ForPcProps {
 const ForPc = ({ ref }: ForPcProps) => {
   const user = useAppSelector(state=>state.auth.user);
   const dispatch = useAppDispatch()
-  console.log(user)
+
   const [userAvailable, setUserAvailable] = useState(false);
   const router = useRouter()
 

@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export type UserType = {
   email: string;
   name:string;
+  exp:number;
   imageUrl:string | null;
   isEmailVarified:boolean
   role: string;

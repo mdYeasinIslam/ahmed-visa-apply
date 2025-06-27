@@ -1,0 +1,37 @@
+{
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "passportNumber": "M1234567",
+  "nationalID": "19981234567",
+  "dateOfBirth": "1990-05-15",
+  "gender": "Male",
+  "email": "john.doe@example.com",
+  "phone": "+8801700000000",
+  "address": "123 Main Street, Dhaka",
+  "zipCode": "1207",
+  "effectiveDate": "2025-07-01",
+  "duration": 180,
+  "spouses": [
+    {
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "dateOfBirth": "1992-04-01", "spouse": "spouse"
+    }
+  ],
+  "children": [
+    {
+      "firstName": "Jimmy",
+      "lastName": "Doe",
+      "dateOfBirth": "2015-08-20", "child": "child"
+    }
+  ],
+  "vehicles": [
+    {
+      "registerNumber": "XYZ-567",
+      "brand": "Nissan",
+      "serviceDate": "2024-03-15"
+    }
+  ]
+}
+
+

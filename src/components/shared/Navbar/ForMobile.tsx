@@ -23,7 +23,7 @@ const ForMobile = ({ ref }: ForMobileProps) => {
   const [open, setOpen] = useState(false);
   const user = useAppSelector(state => state.auth.user);
   const dispatch = useAppDispatch()
-  console.log(user)
+  // console.log(user)
   const [userAvailable, setUserAvailable] = useState(false);
   const router = useRouter()
 

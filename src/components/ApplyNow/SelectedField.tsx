@@ -2,10 +2,10 @@
 type SelectFieldProps = {
     label: string
     name: string
-    value: string
+    value?: string | number
     onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void
     required?: boolean
-    options: { value: string; label: string }[]
+    options: { value: string | number; label: string }[]
 }
 
 export default function SelectField({
