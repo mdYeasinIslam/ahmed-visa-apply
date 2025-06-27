@@ -51,10 +51,10 @@ const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["auth"],
     }),
     changePassword: builder.mutation({
-      query: (user) => ({
-        url: "/auth/change-pass",
-        method: "PATCH",
-        body: user,
+      query: (password) => ({
+        url: "/auth/change-password",
+        method: "POST",
+        body: password,
       }),
       invalidatesTags: ["auth"],
     }),

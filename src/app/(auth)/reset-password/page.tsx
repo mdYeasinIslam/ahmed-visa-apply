@@ -3,7 +3,6 @@ import React, { FormEvent,  useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import LoadingSpinner from "@/app/loading";
-import Link from "next/link";
 import SubmitButton from "@/components/Auth/SubmitButton";
 import { useResetPasswordMutation } from "@/redux/service/auth/authApi";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -129,12 +128,12 @@ console.log(param.toString().split('=')[1].split('&')[0].replace('%40','@'))
                     {/* Submit Button */}
                 <SubmitButton name="Continue" />
                 </form>
-                  <div>
+                  {/* <div>
                         <h2 className="text-sm  text-gray-800  text-center">Don’t have an account?
                           <Link href={'signup'} className="underline hover:text-blue-700">Register</Link>
                         </h2>
                         
-                    </div>
+                    </div> */}
             </div>
         </div>
 
